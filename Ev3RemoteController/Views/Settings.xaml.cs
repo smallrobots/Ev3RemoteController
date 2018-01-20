@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using Smallrobots.Ev3RemoteController.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // Il modello di elemento Pagina vuota è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,7 +13,16 @@ namespace Smallrobots.Ev3RemoteController.Views
     {
         public Settings()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            Loaded += MainPage_Loaded;
+        }
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            MainViewModel vm = this.DataContext as MainViewModel;
+
+            // Set initial state for the visual state manager 
+            vm.VsmConnectionStatus = "CanConnect_Or_Ping";
         }
     }
 }

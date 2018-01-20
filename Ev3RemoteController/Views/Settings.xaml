@@ -1,80 +1,24 @@
 ﻿<Page
-    x:Class="Smallrobots.Ev3RemoteController.Views.Settings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Smallrobots.Ev3RemoteController.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    x:Class="Smallrobots.Ev3RemoteController.Views.Settings"
+    mc:Ignorable="d"
+    
+    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="Connection_Status">
-                <VisualStateGroup.Transitions>
-                    <VisualTransition GeneratedDuration="0:0:1">
-                        <VisualTransition.GeneratedEasingFunction>
-                            <BackEase EasingMode="EaseOut"/>
-                        </VisualTransition.GeneratedEasingFunction>
-                    </VisualTransition>
-                </VisualStateGroup.Transitions>
-                <VisualState x:Name="Connected">
-                    <VisualState.StateTriggers>
-                        <StateTrigger IsActive="True"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="button.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="button2.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="textBox.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="textBox1.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="textBox2.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="textBox3.(Control.IsEnabled)" Value="False"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="CanConnect_Or_Ping">
-                    <VisualState.Setters>
-                        <Setter Target="button1.(Control.IsEnabled)" Value="False"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Pinging">
-                    <VisualState.Setters>
-                        <Setter Target="textBox.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="textBox1.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="textBox2.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="textBox3.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="button2.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="button1.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="button.(Control.IsEnabled)" Value="False"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="CannotConnect_Or_Ping">
-                    <VisualState.Setters>
-                        <Setter Target="button2.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="button.(Control.IsEnabled)" Value="False"/>
-                        <Setter Target="button1.(Control.IsEnabled)" Value="False"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-            <VisualStateGroup x:Name="IpAddressValidity">
-                <VisualState x:Name="Valid"/>
-                <VisualState x:Name="NotValid">
-                    <VisualState.Setters>
-                        <Setter Target="textBox.(Control.IsEnabled)" Value="True"/>
-                        <Setter Target="textBox.(Control.BorderBrush).(SolidColorBrush.Color)">
-                            <Setter.Value>
-                                <Color>#FFF00202</Color>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <!-- Pannello sinistro -->
         <StackPanel Grid.Row="0" Grid.Column="0" 
                     Orientation="Vertical"
                     Margin="10"
@@ -104,25 +48,32 @@
                        d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"
                        VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="2" Grid.Column="0" 
-                       VerticalAlignment="Center"
-                       TextWrapping="Wrap" 
-                       Text="IP Port" 
-                       Style="{StaticResource Caption_Style}"  
-                       d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"/>
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap" 
+                           Text="IP Port"                            
+                           Style="{StaticResource Caption_Style}"  
+                           d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"/>
                 <!-- IP Address -->
-                <TextBox x:Name="textBox" Grid.Row="1" Grid.Column="1" 
-                     TextWrapping="Wrap" 
-                     Text="192.168.0.1" 
-                     Style="{StaticResource UserSetting_TextBoxStyle}" 
-                     d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition"/>
+                <TextBox x:Name="textBox_RobotIpAddress" Grid.Row="1" Grid.Column="1" 
+                         TextWrapping="Wrap" 
+                         Text="{Binding RobotIpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource UserSetting_TextBoxStyle}" 
+                         d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" 
+                         BorderBrush="{Binding RobotIpAddress_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
+                         IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
+                         Width="140"
+                         />
                 <!-- IP Port -->
-                <TextBox x:Name="textBox1" Grid.Row="2" Grid.Column="1" 
-                     VerticalAlignment="Center"
-                     TextWrapping="Wrap" 
-                     Text="65000" 
-                     Style="{StaticResource UserSetting_TextBoxStyle}" 
-                     d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" />
-
+                <TextBox x:Name="textBox_RobotIpPort" Grid.Row="2" Grid.Column="1" 
+                         VerticalAlignment="Center"
+                         TextWrapping="Wrap" 
+                         Text="{Binding RobotIPPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         Style="{StaticResource UserSetting_TextBoxStyle}" 
+                         d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" 
+                         BorderBrush="{Binding RobotIpPort_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
+                         IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
+                         Width="140"
+                         />
             </Grid>
             <!-- Ev3 Remote unit -->
             <Grid x:Name="___Grid__Controller_IP_Settings" Margin="0,20,0,0">
@@ -153,17 +104,25 @@
                        Style="{StaticResource Caption_Style}"  
                        d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"/>
                 <!-- IP Address -->
-                <TextBox x:Name="textBox2" Grid.Row="1" Grid.Column="1" 
-                     TextWrapping="Wrap" 
-                     Text="192.168.0.1" 
-                     Style="{StaticResource UserSetting_TextBoxStyle}" 
-                     d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition"/>
+                <TextBox x:Name="textBox_ControllerIpAddress" Grid.Row="1" Grid.Column="1" 
+                         TextWrapping="Wrap" 
+                         Text="{Binding ControllerIpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         Style="{StaticResource UserSetting_TextBoxStyle}" 
+                         d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition"
+                         BorderBrush="{Binding ControllerIpAddress_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
+                         IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
+                         Width="140"
+                         />
                 <!-- IP Port -->
-                <TextBox x:Name="textBox3" Grid.Row="2" Grid.Column="1" 
-                     TextWrapping="Wrap" 
-                     Text="65000" 
-                     Style="{StaticResource UserSetting_TextBoxStyle}" 
-                     d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" />
+                <TextBox x:Name="textBox_ControllerIpPort" Grid.Row="2" Grid.Column="1" 
+                         TextWrapping="Wrap" 
+                         Text="{Binding ControllerIPPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         Style="{StaticResource UserSetting_TextBoxStyle}" 
+                         d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" 
+                         BorderBrush="{Binding ControllerIpPort_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
+                         IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
+                         Width="140"
+                         />
                 <!-- Joystick -->
                 <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                            TextWrapping="Wrap" 
@@ -189,7 +148,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <!-- Title -->
             <StackPanel Grid.Row="0" Grid.Column="0"
@@ -213,7 +172,8 @@
                            VerticalAlignment="Center"/>
                 <Button x:Name="button2" Content="Ping"
                         VerticalAlignment="Center"
-                        Style="{StaticResource CommanButtonStyle}"/>
+                        Style="{StaticResource CommanButtonStyle}"
+                        Command="{Binding Ping}"/>
             </StackPanel>
             <!-- Connect / Disconnect -->
             <StackPanel Grid.Row="2" Grid.Column="0"
@@ -221,33 +181,38 @@
                         HorizontalAlignment="Center"
                         Margin="5,5,5,5">
                 <Button x:Name="button" Content="Connect" 
-                        Style="{StaticResource CommanButtonStyle}"/>
-                <Button x:Name="button1" Content="Diconnect"  Style="{StaticResource CommanButtonStyle}"/>
+                        Style="{StaticResource CommanButtonStyle}"
+                        Command="{Binding Connect}"/>
+                <Button x:Name="button1" Content="Diconnect"  
+                        Style="{StaticResource CommanButtonStyle}"
+                        Command="{Binding Disconnect}"/>
             </StackPanel>
             <!-- Log -->
             <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                   x:Name="___Grid_Connection_log"
-                  Width="Auto">
+                  Width="Auto"
+                  >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0"
                            Text="Connection log" 
-                           Style="{StaticResource TitleTextBlockStyle}" Margin="0,5" HorizontalAlignment="Left"/>
+                           Style="{StaticResource TitleTextBlockStyle}" 
+                           Margin="0,5" HorizontalAlignment="Left"/>
                 <ScrollViewer Grid.Row="1" Grid.Column="0"
                               Width="Auto"
                               Margin="0,5" Background="#FFE9EBEC"
-                              >
-                    <TextBlock Width="Auto" TextWrapping="Wrap"
-                               Text="Here will appear the log bla bla bla bla bla bla bla bla"/>
+                              VerticalAlignment="Stretch">
+                    <TextBlock Width="350" 
+                               TextWrapping="Wrap"
+                               Text="{Binding ConnectionLog}"
+                               />
                 </ScrollViewer>
             </Grid>
         </Grid>
-
-
     </Grid>
 </Page>

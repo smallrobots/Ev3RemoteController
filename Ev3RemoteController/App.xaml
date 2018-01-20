@@ -1,13 +1,23 @@
-﻿<Application
-    x:Class="Ev3RemoteController.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Ev3RemoteController"
-    RequestedTheme="Light">
+﻿<Application x:Class="Ev3RemoteController.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             RequestedTheme="Light"
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"             
+             xmlns:local="using:Ev3RemoteController"
+             xmlns:viewmodel="using:Smallrobots.Ev3RemoteController.ViewModels"
+             xmlns:converters="using:Smallrobots.Ev3RemoteController.Converters">
+    
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <viewmodel:ViewModelLocator x:Key="Locator"/>
+                </ResourceDictionary>
                 <ResourceDictionary Source="Styles/ViewStyles.xaml"/>
+                <ResourceDictionary>
+                    <converters:BooleanToValidityBrushColorConverter x:Key="BooleanToValidityBrushColorConverter"/>
+                    <converters:ConnectionStatusToBooleanConverter x:Key="ConnectionStatusToBooleanConverter"/>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

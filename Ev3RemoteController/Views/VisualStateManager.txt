@@ -1,0 +1,52 @@
+         <!--Binding visual state manager-->  
+        <Interactivity:Interaction.Behaviors>
+            <Core:DataTriggerBehavior Binding="{Binding VsmConnectionStatus}" 
+                                      Value="{Binding VsmConnectionStatus}">
+                <Core:GoToStateAction StateName="{Binding VsmConnectionStatus}"/>
+            </Core:DataTriggerBehavior>
+        </Interactivity:Interaction.Behaviors>
+         <!--Visual state manager--> 
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ConnectionStatus">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0:0:0.1">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <BackEase EasingMode="EaseOut"/>
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="Connected">
+                    <VisualState.Setters>
+                        <Setter Target="button.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="button2.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="textBox.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="textBox1.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="textBox2.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="textBox3.(Control.IsEnabled)" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="CanConnect_Or_Ping">
+                    <VisualState.Setters>
+                        <Setter Target="button1.(Control.IsEnabled)" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Pinging">
+                    <VisualState.Setters>
+                        <Setter Target="textBox.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="textBox1.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="textBox2.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="textBox3.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="button2.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="button1.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="button.(Control.IsEnabled)" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="CannotConnect_Or_Ping">
+                    <VisualState.Setters>
+                        <Setter Target="button2.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="button.(Control.IsEnabled)" Value="False"/>
+                        <Setter Target="button1.(Control.IsEnabled)" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
