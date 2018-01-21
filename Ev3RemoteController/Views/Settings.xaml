@@ -61,7 +61,7 @@
                          d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" 
                          BorderBrush="{Binding RobotIpAddress_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
                          IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
-                         Width="140"
+                         Width="170"
                          />
                 <!-- IP Port -->
                 <TextBox x:Name="textBox_RobotIpPort" Grid.Row="2" Grid.Column="1" 
@@ -72,7 +72,7 @@
                          d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" 
                          BorderBrush="{Binding RobotIpPort_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
                          IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
-                         Width="140"
+                         Width="170"
                          />
             </Grid>
             <!-- Ev3 Remote unit -->
@@ -111,7 +111,7 @@
                          d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition"
                          BorderBrush="{Binding ControllerIpAddress_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
                          IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
-                         Width="140"
+                         Width="170"
                          />
                 <!-- IP Port -->
                 <TextBox x:Name="textBox_ControllerIpPort" Grid.Row="2" Grid.Column="1" 
@@ -121,7 +121,7 @@
                          d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" 
                          BorderBrush="{Binding ControllerIpPort_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
                          IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
-                         Width="140"
+                         Width="170"
                          />
                 <!-- Joystick -->
                 <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
@@ -137,7 +137,7 @@
         <Grid Grid.Row="0" Grid.Column="1" 
               x:Name="___Grid__Connection_Diagnostic" 
               Margin="10"  
-              HorizontalAlignment="Left"
+              HorizontalAlignment="Stretch"
               d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" 
               Width="Auto">
             <Grid.ColumnDefinitions>
@@ -183,7 +183,7 @@
                 <Button x:Name="button" Content="Connect" 
                         Style="{StaticResource CommanButtonStyle}"
                         Command="{Binding Connect}"/>
-                <Button x:Name="button1" Content="Diconnect"  
+                <Button x:Name="button1" Content="Disconnect"  
                         Style="{StaticResource CommanButtonStyle}"
                         Command="{Binding Disconnect}"/>
             </StackPanel>
@@ -203,14 +203,15 @@
                            Text="Connection log" 
                            Style="{StaticResource TitleTextBlockStyle}" 
                            Margin="0,5" HorizontalAlignment="Left"/>
-                <ScrollViewer Grid.Row="1" Grid.Column="0"
+                <ScrollViewer x:Name="LogScrollViewer"
+                              Grid.Row="1" Grid.Column="0"
                               Width="Auto"
                               Margin="0,5" Background="#FFE9EBEC"
                               VerticalAlignment="Stretch">
-                    <TextBlock Width="350" 
-                               TextWrapping="Wrap"
-                               Text="{Binding ConnectionLog}"
-                               />
+                    <TextBox TextWrapping="Wrap"
+                             Text="{Binding ConnectionLog}"
+                             TextChanged="TextBox_TextChanged"
+                             IsReadOnly="True"/>
                 </ScrollViewer>
             </Grid>
         </Grid>

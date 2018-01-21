@@ -3,6 +3,9 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using Smallrobots.Ev3RemoteController.Models;
 
 namespace Smallrobots.Ev3RemoteController.ViewModels
 {
@@ -197,7 +200,7 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
             PropertyChanged += MainViewModel_PropertyChanged;
 
             // Command definitions
-            Ping = new RelayCommand(Ping_Execute, Ping_CanExecute);
+            Ping = new RelayCommand(Ping_ExecuteAsync, Ping_CanExecute);
             Connect = new RelayCommand(Connect_Execute, Connect_CanExecute);
             Disconnect = new RelayCommand(Disconnect_Execute, Disconnect_CanExecute);
 
@@ -279,10 +282,17 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
 
             return retValue;
         }
-        void Ping_Execute()
+        async void Ping_ExecuteAsync()
         {
             ConnectionStatus = ConnectionState.Pinging;
             VerifyAllCanExecuteCommands();
+
+            SocketChecker pinger = new SocketChecker(robotIpAddress, robotIPPort);
+            ConnectionLog += await pinger.StartPingAsync();
+
+            ConnectionStatus = ConnectionState.CanConnect_Or_Ping;
+            VerifyAllCanExecuteCommands();
+
         }
 
         /////////////////////////

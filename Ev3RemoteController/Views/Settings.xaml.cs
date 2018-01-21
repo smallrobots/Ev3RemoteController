@@ -24,5 +24,13 @@ namespace Smallrobots.Ev3RemoteController.Views
             // Set initial state for the visual state manager 
             vm.VsmConnectionStatus = "CanConnect_Or_Ping";
         }
+
+        /// <summary>
+        /// This event handler is used to scroll the log textbox automatically
+        /// </summary>
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LogScrollViewer.ChangeView(0.0f, double.MaxValue, 1.0f);
+        }
     }
 }
