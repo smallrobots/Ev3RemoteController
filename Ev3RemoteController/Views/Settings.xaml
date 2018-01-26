@@ -8,7 +8,9 @@
     x:Class="Smallrobots.Ev3RemoteController.Views.Settings"
     mc:Ignorable="d"
     
-    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
+    
+    RequiresPointer="Never" KeyDown="Page_KeyDown">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -86,6 +88,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                        TextWrapping="Wrap" 
@@ -126,11 +129,33 @@
                 <!-- Joystick -->
                 <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                            TextWrapping="Wrap" 
-                           Text="No Josystick detected" 
+                           Text="{Binding GameControllerConnectedNotification}" 
                            HorizontalAlignment="Center"
                            Style="{StaticResource Caption_Style}"  
                            d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Margin="0,20,5,5"/>
-
+                <!-- Joystick position -->
+                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0"
+                               Style="{StaticResource Caption_Style}"
+                               Text="X Position"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+                               Style="{StaticResource Caption_Style}"
+                               Text="Y Position"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1"
+                               Style="{StaticResource Caption_Style}"
+                               Text="{Binding LeftThumbStickX}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1"
+                               Style="{StaticResource Caption_Style}"
+                               Text="{Binding LeftThumbStickY}"/>
+                </Grid>
             </Grid>
         </StackPanel>
         <!-- Connection diagnostics -->

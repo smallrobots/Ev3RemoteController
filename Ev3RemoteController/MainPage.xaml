@@ -7,7 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     
-    xmlns:views="using:Smallrobots.Ev3RemoteController.Views">
+    xmlns:views="using:Smallrobots.Ev3RemoteController.Views"
+    
+    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
+    
+    RequiresPointer="Never">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>

@@ -19,7 +19,7 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
 
     public class MainViewModel : ViewModelBase
     {
-        #region Properties
+        #region Old properties to be removed
         // Update property as usual
         string vsmConnectionStatus = "";
         /// <summary>
@@ -38,7 +38,74 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
                 //}
             }
         }
+        #endregion
 
+        #region Properties about the gamepad
+        double leftThumbStickX;
+        /// <summary>
+        /// Gets or sets the the X position of the Left Thubsticl
+        /// </summary>
+        public double LeftThumbStickX
+        {
+            get => leftThumbStickX;
+            set
+            {
+                if (leftThumbStickX != value)
+                {
+                    if (Math.Abs(value) > 0.05)
+                        leftThumbStickX = value;
+                    else
+                        leftThumbStickX = 0;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        double leftThumbStickY;
+        /// <summary>
+        /// Gets or sets the the Y position of the Left Thubsticl
+        /// </summary>
+        public double LeftThumbStickY
+        {
+            get => leftThumbStickY;
+            set
+            {
+                if (leftThumbStickY != value)
+                {
+                    if (Math.Abs(value) > 0.05)
+                        leftThumbStickY = value;
+                    else
+                        leftThumbStickY = 0;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        bool gameControllerConnected;
+        /// <summary>
+        /// Get or Sets the game controller connected flag
+        /// </summary>
+        public bool GameControllerConnected
+        {
+            get => gameControllerConnected;
+            set
+            {
+                if (gameControllerConnected != value)
+                {
+                    gameControllerConnected = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("GameControllerConnectedNotification");
+                }
+            }
+        }
+
+        public string GameControllerConnectedNotification
+        {
+            get => GameControllerConnected ? "Joystick detected" : "No joystick detected";
+        }
+        #endregion
+
+        #region Properties about the TCP Parameters
         bool robotIpAddress_IsValid = false;
         /// <summary>
         /// Gets or sets a property that indicates whether the Robot IP Address is valid

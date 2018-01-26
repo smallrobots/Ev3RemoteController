@@ -5,7 +5,9 @@
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"             
              xmlns:local="using:Ev3RemoteController"
              xmlns:viewmodel="using:Smallrobots.Ev3RemoteController.ViewModels"
-             xmlns:converters="using:Smallrobots.Ev3RemoteController.Converters">
+             xmlns:converters="using:Smallrobots.Ev3RemoteController.Converters"
+             
+             RequiresPointerMode="WhenRequested">
     
     <Application.Resources>
         <ResourceDictionary>

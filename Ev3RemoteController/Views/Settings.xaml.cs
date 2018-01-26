@@ -1,4 +1,7 @@
 ﻿using Smallrobots.Ev3RemoteController.ViewModels;
+using System;
+using Windows.Gaming.Input;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -11,12 +14,86 @@ namespace Smallrobots.Ev3RemoteController.Views
     /// </summary>
     public sealed partial class Settings : Page
     {
-        public Settings()
+        #region Properties and fields about the GamePad
+        double leftThumbStickX;
+        /// <summary>
+        /// Gets or sets the X position of the left thumbstick
+        /// </summary>
+        public double LeftThumbStickX
         {
-            InitializeComponent();
-            Loaded += MainPage_Loaded;
+            get => leftThumbStickX;
+            set
+            {
+                if (leftThumbStickX != value)
+                {
+                    leftThumbStickX = value;
+                    ((MainViewModel)DataContext).LeftThumbStickX = leftThumbStickX;
+                }
+            }
         }
 
+        double leftThumbStickY;
+        /// <summary>
+        /// Gets or sets the Y position of the left thumbstick
+        /// </summary>
+        public double LeftThumbStickY
+        {
+            get => leftThumbStickY;
+            set
+            {
+                if (leftThumbStickY != value)
+                {
+                    leftThumbStickY = value;
+                    ((MainViewModel)DataContext).LeftThumbStickY = leftThumbStickY;
+                }
+            }
+        }
+
+        bool gameControllerConnected;
+        /// <summary>
+        /// Get or Sets the game controller connected flag
+        /// </summary>
+        public bool GameControllerConnected
+        {
+            get => gameControllerConnected;
+            set
+            {
+                if (gameControllerConnected != value)
+                {
+                    gameControllerConnected = value;
+
+                    var viewModel = (MainViewModel)DataContext;
+                    viewModel.GameControllerConnected = value;
+                }
+            }
+        }
+
+        DispatcherTimer gameControllerUpdateTimer;
+        #endregion
+
+        #region Constructor
+    public Settings()
+    {
+        InitializeComponent();
+        Loaded += MainPage_Loaded;
+
+        // Gamecontroller
+        gameControllerUpdateTimer = new DispatcherTimer();
+        gameControllerUpdateTimer.Tick += gameControllerUpdateTimer_Callback;
+        gameControllerUpdateTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+
+        GameControllerConnected = false;
+        Gamepad.GamepadAdded += Gamepad_GamepadAdded;
+        Gamepad.GamepadRemoved += Gamepad_GamepadRemoved;
+    }
+        #endregion
+
+        #region UI event handlers
+        /// <summary>
+        /// This has to be removed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             MainViewModel vm = this.DataContext as MainViewModel;
@@ -31,6 +108,71 @@ namespace Smallrobots.Ev3RemoteController.Views
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             LogScrollViewer.ChangeView(0.0f, double.MaxValue, 1.0f);
+        }
+        #endregion
+
+        #region Gamepad event handlers
+        /// <summary>
+        /// It is called periodically to check for user input throught the gamepad
+        /// </summary>
+        void gameControllerUpdateTimer_Callback(object sender, object e)
+        {
+            if (GameControllerConnected)
+            {
+                Gamepad gamePad = Gamepad.Gamepads[0];
+                GamepadReading readings = gamePad.GetCurrentReading();
+                LeftThumbStickX = readings.LeftThumbstickX;
+                LeftThumbStickY = readings.LeftThumbstickY;
+            }
+        }
+
+        /// <summary>
+        /// It is called upon gamepad detection
+        /// </summary>
+        async void Gamepad_GamepadAdded(object sender, Gamepad e)
+        {
+            await Dispatcher.RunAsync(
+                    CoreDispatcherPriority.Normal, () =>
+                    {
+                        GameControllerConnected = true;
+                        gameControllerUpdateTimer.Start();
+                    });
+
+        }
+
+        /// <summary>
+        /// It is called upon gamepad removal
+        /// </summary>
+        async void Gamepad_GamepadRemoved(object sender, Gamepad e)
+        {
+            await Dispatcher.RunAsync(
+                    CoreDispatcherPriority.Normal, () =>
+                    {
+                        GameControllerConnected = false;
+                        gameControllerUpdateTimer.Stop();
+                    });
+        }
+        #endregion
+
+        private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Up ||
+                e.Key == Windows.System.VirtualKey.Down ||
+                e.Key == Windows.System.VirtualKey.Left ||
+                e.Key == Windows.System.VirtualKey.Right)
+            {
+                // Nothing
+                e.Handled = true;
+            }
+
+            if (e.Key == Windows.System.VirtualKey.GamepadLeftThumbstickUp ||
+                e.Key == Windows.System.VirtualKey.GamepadLeftThumbstickDown ||
+                e.Key == Windows.System.VirtualKey.GamepadLeftThumbstickLeft ||
+                e.Key == Windows.System.VirtualKey.GamepadLeftThumbstickRight)
+            {
+                // Nothing
+                e.Handled = true;
+            }
         }
     }
 }
