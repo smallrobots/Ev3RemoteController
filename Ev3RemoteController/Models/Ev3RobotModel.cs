@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Smallrobots.Ev3TrackedExplor3r.Shared
+namespace Smallrobots.Ev3RemoteController.Models
 {
     public class Ev3RobotModel : Model
     {

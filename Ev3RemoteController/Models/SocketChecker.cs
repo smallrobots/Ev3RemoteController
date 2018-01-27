@@ -2,6 +2,8 @@
 using System;
 using Windows.Networking.Sockets;
 using System.Threading.Tasks;
+using Windows.Storage.Streams;
+using Newtonsoft.Json;
 
 namespace Smallrobots.Ev3RemoteController.Models
 {
@@ -16,7 +18,17 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// <summary>
         /// Host port of service to ping
         /// </summary>
-        int hostPort;
+        int remoteHostPort;
+
+        /// <summary>
+        /// This controller Ip address
+        /// </summary>
+        IPAddress controllerIpAddress;
+
+        /// <summary>
+        /// This controller Ip port
+        /// </summary>
+        int controllerIpPort;
 
         /// <summary>
         /// String use as log
@@ -32,12 +44,17 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// and log the results to the supplied logstring
         /// </summary>
         /// <param name="hostIpAddres"></param>
-        public SocketChecker(IPAddress hostIpAddres, int hostPort)
+        public SocketChecker(IPAddress hostIpAddres, int hostPort, 
+            IPAddress controllerIpAddress,
+            int controllerIpPort)
         {
             // Pinger parameters
             this.hostIpAddres = hostIpAddres;
+            this.remoteHostPort = hostPort;
+            this.controllerIpAddress = controllerIpAddress;
+            this.controllerIpPort = controllerIpPort;
             this.logString = "";
-            this.hostPort = hostPort;
+
 
             // Fields initialization
             connectionInProgress = false;
@@ -55,19 +72,74 @@ namespace Smallrobots.Ev3RemoteController.Models
 
             connectionInProgress = true;
 
+            // await TestTcpIP();
+
+            await TestUdpIP();
+
+            connectionInProgress = false;
+
+            return logString;
+        }
+
+        async Task TestUdpIP()
+        {
+            // Create a message
+            Ev3RobotMessage message = new Ev3RobotMessage();
+            message.MessageFunction = MessageType.subscribe;
+            message.RemoteControllerAddress = controllerIpAddress.ToString();
+            message.RemoteControllerPort = controllerIpPort.ToString();
+
+            string serializedMessage = JsonConvert.SerializeObject(message);
+            
+            using (var udpClient = new DatagramSocket())
+            {
+                try
+                {
+                    udpClient.MessageReceived += UdpClient_MessageReceived;
+                    var controllerName = new Windows.Networking.HostName(controllerIpAddress.ToString());
+                    await udpClient.BindEndpointAsync(controllerName, controllerIpPort.ToString());
+
+                    var remoteHostName = new Windows.Networking.HostName(hostIpAddres.ToString());
+                    await udpClient.ConnectAsync(remoteHostName, remoteHostPort.ToString());
+
+                    DataWriter writer;
+                    writer = new DataWriter(udpClient.OutputStream);
+
+                    writer.WriteString(JsonConvert.SerializeObject(message));
+
+                    await writer.StoreAsync();
+
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        void UdpClient_MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// // Attempt to contact via TCP/IP
+        /// </summary>
+        async Task TestTcpIP()
+        {           
             try
             {
                 using (var tcpClient = new StreamSocket())
                 {
                     await tcpClient.ConnectAsync(
                         new Windows.Networking.HostName(hostIpAddres.ToString()),
-                        hostPort.ToString(),
+                        remoteHostPort.ToString(),
                         SocketProtectionLevel.PlainSocket);
 
                     var localIp = tcpClient.Information.LocalAddress.DisplayName;
                     var remoteIp = tcpClient.Information.RemoteAddress.DisplayName;
 
-                    logString += String.Format("\nSuccess, remote server contacted at IP address {0}",
+                    logString += String.Format("\nSuccess, TCP remote server contacted at IP address {0}",
                                                                  remoteIp);
                     tcpClient.Dispose();
                 }
@@ -87,12 +159,6 @@ namespace Smallrobots.Ev3RemoteController.Models
                     logString += "\nError: Exception returned from network stack:\n" + ex.Message;
                 }
             }
-            finally
-            {
-                connectionInProgress = false;
-            }
-
-            return logString;
         }
         #endregion
     }

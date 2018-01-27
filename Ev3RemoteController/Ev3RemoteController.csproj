@@ -100,12 +100,13 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Ev3RobotMessage.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\SocketChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Ev3RobotModel.cs" />
-    <Compile Include="ViewModels\Ev3TrackedExplor3rModel.cs" />
-    <Compile Include="ViewModels\Ev3TrackedExplor3r_TCPRemoteConnection.cs" />
+    <Compile Include="Models\Ev3RobotModel.cs" />
+    <Compile Include="Models\Ev3TrackedExplor3rModel.cs" />
+    <Compile Include="Models\Ev3TrackedExplor3r_TCPRemoteConnection.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\About.xaml.cs">

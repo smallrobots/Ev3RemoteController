@@ -354,7 +354,8 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
             ConnectionStatus = ConnectionState.Pinging;
             VerifyAllCanExecuteCommands();
 
-            SocketChecker pinger = new SocketChecker(robotIpAddress, robotIPPort);
+            SocketChecker pinger = new SocketChecker(robotIpAddress, robotIPPort,
+                                                     controllerIpAddress, controllerIPPort);
             ConnectionLog += await pinger.StartPingAsync();
 
             ConnectionStatus = ConnectionState.CanConnect_Or_Ping;

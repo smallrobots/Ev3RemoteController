@@ -16,7 +16,7 @@ using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 using Windows.System.Threading;
 
-namespace Smallrobots.Ev3TrackedExplor3r.Shared
+namespace Smallrobots.Ev3RemoteController.Models
 {
     public class Ev3TrackedExplor3r_TCPRemoteConnection : Model
     {

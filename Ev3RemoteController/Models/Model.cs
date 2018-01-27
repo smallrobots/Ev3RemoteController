@@ -5,29 +5,25 @@
 // Copyright Mosaico Monitoraggio Integrato s.r.l. 2015 //
 //////////////////////////////////////////////////////////
 
-// Inclusioni di sistema
-using System;
-
 // Inclusioni di progetto
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
-using Windows.Management.Deployment;
+using Newtonsoft.Json;
 
-namespace Smallrobots.Ev3TrackedExplor3r.Shared
+namespace Smallrobots.Ev3RemoteController.Models
 {
     //[Serializable]
     public abstract partial class Model : object, INotifyPropertyChanged
     {
         #region Proprietà
-        //[field: NonSerialized]
+        [JsonIgnore]
         private bool notificationsEnabled;
         /// <summary>
         /// Ottiene o imposta l'abilitazione alla notifica del cambiamento di una delle proprietà del modello
         /// Se False, la modifica non viene notificata
         /// Se True, la modifica viene notificata
         /// </summary>
-        //[NotMapped]
+        [JsonIgnore]
         public bool NotificationsEnabled
         {
             get
