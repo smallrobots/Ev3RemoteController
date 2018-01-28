@@ -4,6 +4,7 @@ using Windows.Networking.Sockets;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Newtonsoft.Json;
+using Windows.Networking;
 
 namespace Smallrobots.Ev3RemoteController.Models
 {
@@ -31,9 +32,14 @@ namespace Smallrobots.Ev3RemoteController.Models
         int controllerIpPort;
 
         /// <summary>
-        /// String use as log
+        /// String used as logbook
         /// </summary>
         string logString;
+
+        /// <summary>
+        /// Message received back from the Robot
+        /// </summary>
+        int messagesReceived;
 
         bool connectionInProgress;
         #endregion
@@ -83,32 +89,82 @@ namespace Smallrobots.Ev3RemoteController.Models
 
         async Task TestUdpIP()
         {
-            // Create a message
-            Ev3RobotMessage message = new Ev3RobotMessage();
-            message.MessageFunction = MessageType.subscribe;
-            message.RemoteControllerAddress = controllerIpAddress.ToString();
-            message.RemoteControllerPort = controllerIpPort.ToString();
+            // Message to the robot 
+            Ev3RobotMessage message;
 
-            string serializedMessage = JsonConvert.SerializeObject(message);
-            
+            // Writer to the DatagramSocket
+            DataWriter writer;
+
             using (var udpClient = new DatagramSocket())
             {
                 try
                 {
+                    // String containing the serializaed message
+                    string serializedMessage = "";
+
+                    //udpClient.MessageReceived += UdpClient_MessageReceived;
+                    //var controllerName = new Windows.Networking.HostName(controllerIpAddress.ToString());
+                    //await udpClient.BindEndpointAsync(controllerName, controllerIpPort.ToString());
+
+                    //var remoteHostName = new Windows.Networking.HostName(hostIpAddres.ToString());
+                    //await udpClient.ConnectAsync(remoteHostName, remoteHostPort.ToString());
+
+                    var controllerName = new HostName(controllerIpAddress.ToString());
+                    var remoteHostName = new HostName(hostIpAddres.ToString());
+                    EndpointPair endpointpar = new EndpointPair(controllerName,
+                                                                controllerIpPort.ToString(),
+                                                                remoteHostName,
+                                                                remoteHostPort.ToString());
                     udpClient.MessageReceived += UdpClient_MessageReceived;
-                    var controllerName = new Windows.Networking.HostName(controllerIpAddress.ToString());
-                    await udpClient.BindEndpointAsync(controllerName, controllerIpPort.ToString());
+                    await udpClient.ConnectAsync(endpointpar);
 
-                    var remoteHostName = new Windows.Networking.HostName(hostIpAddres.ToString());
-                    await udpClient.ConnectAsync(remoteHostName, remoteHostPort.ToString());
+                    // Create a subscribe message
+                    message = new Ev3RobotMessage
+                    {
+                        MessageFunction = MessageType.subscribe,
+                        RemoteControllerAddress = controllerIpAddress.ToString(),
+                        RemoteControllerPort = controllerIpPort.ToString()
+                    };
+                    serializedMessage = JsonConvert.SerializeObject(message);
 
-                    DataWriter writer;
+                    // Reset the counter of messages received back from the remote robot
+                    messagesReceived = 0;
+
+                    // Send the message
+                    logString += "\nSending subscribe message...";
                     writer = new DataWriter(udpClient.OutputStream);
-
                     writer.WriteString(JsonConvert.SerializeObject(message));
-
                     await writer.StoreAsync();
+                    logString += "\nSubscribe message sent";
 
+                    // Wait for robot status messages
+                    logString += "\nWaiting for robot reply...";
+                    await Task.Delay(5000);
+                    logString += "\nMessages received back from remote robot in 5s: " + messagesReceived.ToString();
+
+                    // Create an unsubscribe messages
+                    message = new Ev3RobotMessage
+                    {
+                        MessageFunction = MessageType.unsubscribe,
+                        RemoteControllerAddress = controllerIpAddress.ToString(),
+                        RemoteControllerPort = controllerIpPort.ToString()
+                    };
+                    serializedMessage = JsonConvert.SerializeObject(message);
+
+                    // Reset the counter of messages received back from the remote robot
+                    messagesReceived = 0;
+
+                    // Send the message
+                    logString += "\nSending unsubscribe message...";
+                    writer = new DataWriter(udpClient.OutputStream);
+                    writer.WriteString(JsonConvert.SerializeObject(message));
+                    await writer.StoreAsync();
+                    logString += "\nSubscribe message sent";
+
+                    // Robot should not send any message back
+                    logString += "\nWaiting for robot reply...";
+                    await Task.Delay(5000);
+                    logString += "\nMessages received back from remote robot in 5s: " + messagesReceived.ToString();
                 }
                 catch
                 {
@@ -119,7 +175,8 @@ namespace Smallrobots.Ev3RemoteController.Models
 
         void UdpClient_MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
-            throw new NotImplementedException();
+            // Just increment the number of messages received
+            messagesReceived++;
         }
 
         /// <summary>
