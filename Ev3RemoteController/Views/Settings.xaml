@@ -228,16 +228,12 @@
                            Text="Connection log" 
                            Style="{StaticResource TitleTextBlockStyle}" 
                            Margin="0,5" HorizontalAlignment="Left"/>
-                <ScrollViewer x:Name="LogScrollViewer"
-                              Grid.Row="1" Grid.Column="0"
-                              Width="Auto"
-                              Margin="0,5" Background="#FFE9EBEC"
-                              VerticalAlignment="Stretch">
-                    <TextBox TextWrapping="Wrap"
-                             Text="{Binding ConnectionLog}"
-                             TextChanged="TextBox_TextChanged"
-                             IsReadOnly="True"/>
-                </ScrollViewer>
+                <TextBox x:Name ="LogView" Grid.Row="1" Grid.Column="0" 
+                         TextWrapping="Wrap"
+                         Text="{Binding ConnectionLog}"
+                         TextChanged="TextBox_TextChanged"
+                         IsReadOnly="True" 
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"/>
             </Grid>
         </Grid>
     </Grid>

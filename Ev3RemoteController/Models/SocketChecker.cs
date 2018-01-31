@@ -8,7 +8,7 @@ using Windows.Networking;
 
 namespace Smallrobots.Ev3RemoteController.Models
 {
-    public class SocketChecker
+    public class SocketChecker : Model
     {
         #region Fields
         /// <summary>
@@ -30,11 +30,27 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// This controller Ip port
         /// </summary>
         int controllerIpPort;
+        #endregion
 
+        #region Properties
         /// <summary>
         /// String used as logbook
         /// </summary>
-        string logString;
+        string logString = "";
+        /// <summary>
+        /// Gets or sets the logstring
+        /// </summary>
+        public string LogString
+        {
+            get => logString;
+            set
+            {
+                logString = value;
+                RaisePropertyChanged();
+            }
+        }
+   
+
 
         /// <summary>
         /// Message received back from the Robot
@@ -80,14 +96,14 @@ namespace Smallrobots.Ev3RemoteController.Models
 
             // await TestTcpIP();
 
-            await TestUdpIP();
+            await TestUdpIP_DifferentPorts();
 
             connectionInProgress = false;
 
             return logString;
         }
 
-        async Task TestUdpIP()
+        async Task TestUdpIP_SamePorts()
         {
             // Message to the robot 
             Ev3RobotMessage message;
@@ -139,7 +155,7 @@ namespace Smallrobots.Ev3RemoteController.Models
 
                     // Wait for robot status messages
                     logString += "\nWaiting for robot reply...";
-                    await Task.Delay(5000);
+                    await Task.Delay(1000);
                     logString += "\nMessages received back from remote robot in 5s: " + messagesReceived.ToString();
 
                     // Create an unsubscribe messages
@@ -163,7 +179,7 @@ namespace Smallrobots.Ev3RemoteController.Models
 
                     // Robot should not send any message back
                     logString += "\nWaiting for robot reply...";
-                    await Task.Delay(5000);
+                    await Task.Delay(1000);
                     logString += "\nMessages received back from remote robot in 5s: " + messagesReceived.ToString();
                 }
                 catch
@@ -171,6 +187,101 @@ namespace Smallrobots.Ev3RemoteController.Models
 
                 }
             }
+        }
+
+        async Task TestUdpIP_DifferentPorts()
+        {
+            // Message to the robot 
+            Ev3RobotMessage message;
+
+            // Writer to the DatagramSocket
+            DataWriter writer;
+
+            DatagramSocket udpListener = new DatagramSocket();
+            DatagramSocket udpSender = new DatagramSocket();
+
+            try
+            {
+                // String containing the serializaed message
+                string serializedMessage = "";
+
+                var controllerName = new HostName(controllerIpAddress.ToString());
+                var remoteHostName = new HostName(hostIpAddres.ToString());
+
+                // Bind listener
+                // await udpListener.BindEndpointAsync(controllerName, controllerIpPort.ToString());
+                udpListener.MessageReceived += UdpClient_MessageReceived;
+                await udpListener.BindServiceNameAsync(controllerIpPort.ToString());
+
+                // Connect sender
+                await udpSender.ConnectAsync(remoteHostName, remoteHostPort.ToString());
+
+                // Create a subscribe message
+                message = new Ev3RobotMessage
+                {
+                    MessageFunction = MessageType.subscribe,
+                    RemoteControllerAddress = controllerIpAddress.ToString(),
+                    RemoteControllerPort = controllerIpPort.ToString()
+                };
+                serializedMessage = JsonConvert.SerializeObject(message);
+
+                // Reset the counter of messages received back from the remote robot
+                messagesReceived = 0;
+
+                LogString = "\n\n*** Starting check with " + controllerIpAddress.ToString() + ":" + controllerIpPort.ToString();
+
+                // Send the message
+                LogString = "\nSending subscribe message...";
+                writer = new DataWriter(udpSender.OutputStream);
+                writer.WriteString(JsonConvert.SerializeObject(message));
+                await writer.StoreAsync();
+                LogString = "\nSubscribe message sent";
+
+                // Wait for robot status messages
+                LogString = "\nWaiting for robot reply...";
+                await Task.Delay(1000);
+                LogString = "\nMessages received back from remote robot in 1s: " + messagesReceived.ToString();
+
+                // Create an unsubscribe messages
+                message = new Ev3RobotMessage
+                {
+                    MessageFunction = MessageType.unsubscribe,
+                    RemoteControllerAddress = controllerIpAddress.ToString(),
+                    RemoteControllerPort = controllerIpPort.ToString()
+                };
+                serializedMessage = JsonConvert.SerializeObject(message);
+
+                bool firstStep = messagesReceived > 8;
+                // Reset the counter of messages received back from the remote robot
+                messagesReceived = 0;
+
+                // Send the message
+                LogString = "\n\nSending unsubscribe message...";
+                writer = new DataWriter(udpSender.OutputStream);
+                writer.WriteString(JsonConvert.SerializeObject(message));
+                await writer.StoreAsync();
+                LogString = "\nUnsubscribe message sent";
+
+                // Robot should not send any message back
+                LogString = "\nWaiting for robot reply...";
+                await Task.Delay(1000);
+                LogString = "\nMessages received back from remote robot in 1s: " + messagesReceived.ToString();
+
+                bool secondStep = messagesReceived < 1;
+
+                if (firstStep && secondStep)
+                    LogString = "\n*** Test succesfull !! ";
+                else
+                    LogString = "\n*** Test failed !! ";
+            }
+            catch (Exception ex)
+            {
+                LogString = "\nException raised: " + ex.Message;
+            }
+
+            udpSender.Dispose();
+            udpListener.Dispose();
+
         }
 
         void UdpClient_MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)

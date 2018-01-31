@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Smallrobots.Ev3RemoteController.Models;
+using Windows.Storage;
 
 namespace Smallrobots.Ev3RemoteController.ViewModels
 {
@@ -191,6 +192,9 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
                 RobotIpAddress_IsValid = IPAddress.TryParse(value, out robotIpAddress) &&
                                          value.Split(". ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Length == 4;
                 RaisePropertyChanged();
+
+                // Store the property if it is valid
+                if (RobotIpAddress_IsValid) StoreLocalSettings();
             }
         }
 
@@ -207,6 +211,9 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
                 if (RobotIpPort_IsValid && ((robotIPPort < 0) || (robotIPPort > 65000)))
                     RobotIpPort_IsValid = false;
                 RaisePropertyChanged();
+
+                // Store the property if it is valid
+                if (RobotIpPort_IsValid) StoreLocalSettings();
             }
         }
 
@@ -223,6 +230,9 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
                 ControllerIpAddress_IsValid = IPAddress.TryParse(value, out controllerIpAddress) &&
                                          value.Split(". ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Length == 4;
                 RaisePropertyChanged();
+
+                // Store the property if it is valid
+                if (ControllerIpAddress_IsValid) StoreLocalSettings();
             }
         }
 
@@ -239,6 +249,9 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
                 if (ControllerIpPort_IsValid && ((controllerIPPort < 0) || (controllerIPPort > 65000)))
                     ControllerIpPort_IsValid = false;
                 RaisePropertyChanged();
+
+                // Store the property if it is valid
+                if (ControllerIpPort_IsValid) StoreLocalSettings();
             }
         }
 
@@ -271,11 +284,8 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
             Connect = new RelayCommand(Connect_Execute, Connect_CanExecute);
             Disconnect = new RelayCommand(Disconnect_Execute, Disconnect_CanExecute);
 
-            // Default values
-            RobotIpAddress = "192.168.0.1";
-            RobotIPPort = "25000";
-            ControllerIpAddress = "127.0.0.1";
-            ControllerIPPort = "19000";
+            // Create or retrieve the local application settings
+            CreateOrRetrieveLocalSettings();
 
             // Connection Log
             ConnectionLog = "Ev3 Remote Controller";
@@ -356,7 +366,18 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
 
             SocketChecker pinger = new SocketChecker(robotIpAddress, robotIPPort,
                                                      controllerIpAddress, controllerIPPort);
-            ConnectionLog += await pinger.StartPingAsync();
+
+            // Subscribe to property changed event to intercept the log
+            pinger.PropertyChanged += (object sender, System.ComponentModel.PropertyChangedEventArgs e) => 
+                {
+                    SocketChecker sc = (SocketChecker)sender; 
+                    if (e.PropertyName.Equals("LogString"))
+                    {
+                        ConnectionLog += sc.LogString;
+                    }
+                };
+
+            await pinger.StartPingAsync();
 
             ConnectionStatus = ConnectionState.CanConnect_Or_Ping;
             VerifyAllCanExecuteCommands();
@@ -422,6 +443,110 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
                 ConnectionStatus = ConnectionState.CannotConnect_Or_Ping;
             VerifyAllCanExecuteCommands();
 
+        }
+
+        /// <summary>
+        /// Create or retrieve the local application settings
+        /// </summary>
+        void CreateOrRetrieveLocalSettings()
+        {
+            // Default values
+            string default_RobotIpAddress = "192.168.0.1";
+            string default_RobotIPPort = "25000";
+            string default_ControllerIpAddress = "127.0.0.1";
+            string default_ControllerIPPort = "19000";
+
+            //Check if setting #postsToDownload exists and create it if it does not
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
+            try
+            {
+                // Robot IP Address
+                var stored_RobotIpAddress = localSettings.Values["RobotIpAddress"];
+                if (stored_RobotIpAddress == null)
+                {
+                    localSettings.Values["RobotIpAddress"] = default_RobotIpAddress;
+                    robotIpAddress = IPAddress.Parse(default_RobotIpAddress);
+                }
+                else
+                {
+                    robotIpAddress = IPAddress.Parse(stored_RobotIpAddress.ToString());
+                }
+                robotIpAddress_IsValid = true;
+
+                // Robot IP Port
+                var stored_RobotIPPort = localSettings.Values["RobotIPPort"];
+                if (stored_RobotIPPort == null)
+                {
+                    localSettings.Values["RobotIPPort"] = default_RobotIPPort;
+                    robotIPPort = int.Parse(default_RobotIPPort);
+                }
+                else
+                {
+                    robotIPPort = int.Parse(stored_RobotIPPort.ToString());
+                }
+                robotIpPort_IsValid = true;
+
+                // Controller IP Address
+                var stored_ControllerIpAddress = localSettings.Values["ControllerIpAddress"];
+                if (stored_ControllerIpAddress == null)
+                {
+                    localSettings.Values["ControllerIpAddress"] = default_ControllerIpAddress;
+                    controllerIpAddress = IPAddress.Parse(default_ControllerIpAddress);
+                }
+                else
+                {
+                    controllerIpAddress = IPAddress.Parse(stored_ControllerIpAddress.ToString());
+                }
+                controllerIpAddress_IsValid = true;
+
+                // Controller IP Port
+                var stored_ControllerIPPort = localSettings.Values["ControllerIPPort"];
+                if (stored_ControllerIPPort == null)
+                {
+                    localSettings.Values["ControllerIPPort"] = default_ControllerIPPort;
+                    controllerIPPort = int.Parse(default_RobotIPPort);
+                }
+                else
+                {
+                    controllerIPPort = int.Parse(stored_ControllerIPPort.ToString());
+                }
+                controllerIpPort_IsValid = true;
+            }
+            catch (Exception ex)
+            {
+                // Problems retrieving the stored settings
+                // Assigning very very default values
+                RobotIpAddress = "192.168.0.1";
+                RobotIPPort = "25000";
+                ControllerIpAddress = "127.0.0.1";
+                ControllerIPPort = "19000";
+
+                ConnectionLog += "\n Exception retrieving stored user settings: \n" + ex.ToString() +
+                    "\nUsing default values";
+            }
+
+        }
+
+        /// <summary>
+        /// Store user settings
+        /// </summary>
+        void StoreLocalSettings()
+        {
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+            try
+            {
+                localSettings.Values["RobotIpAddress"] = RobotIpAddress;
+                localSettings.Values["RobotIPPort"] = RobotIPPort;
+                localSettings.Values["ControllerIpAddress"] = ControllerIpAddress;
+                localSettings.Values["ControllerIPPort"] = ControllerIPPort;
+            }
+            catch (Exception ex)
+            {
+                // Problems storing the local settings
+                ConnectionLog += "\n Exception storing user settings: \n" + ex.ToString() +
+                    "\nUsing default values";
+            }
         }
         #endregion
     }

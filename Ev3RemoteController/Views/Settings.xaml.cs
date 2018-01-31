@@ -4,6 +4,7 @@ using Windows.Gaming.Input;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 // Il modello di elemento Pagina vuota è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -107,7 +108,15 @@ namespace Smallrobots.Ev3RemoteController.Views
         /// </summary>
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            LogScrollViewer.ChangeView(0.0f, double.MaxValue, 1.0f);
+            TextBox textBox = (TextBox)sender;
+            var grid = (Grid)VisualTreeHelper.GetChild(textBox, 0);
+            for (var i = 0; i <= VisualTreeHelper.GetChildrenCount(grid) - 1; i++)
+            {
+                object obj = VisualTreeHelper.GetChild(grid, i);
+                if (!(obj is ScrollViewer)) continue;
+                ((ScrollViewer)obj).ChangeView(0.0f, ((ScrollViewer)obj).ExtentHeight, 1.0f, true);
+                break;
+            }
         }
         #endregion
 
