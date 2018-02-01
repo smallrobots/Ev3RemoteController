@@ -148,6 +148,22 @@ namespace Smallrobots.Ev3RemoteController.Models
                 RaisePropertyChanged();
             }
         }
+
+        [JsonIgnore]
+        int batteryLevel = 0;
+        /// <summary>
+        /// Gets or sets the battery level in volts / 1000000
+        /// </summary>
+        [JsonProperty("battery_level")]
+        public int BatteryLevel
+        {
+            get => batteryLevel;
+            set
+            {
+                batteryLevel = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
     }
