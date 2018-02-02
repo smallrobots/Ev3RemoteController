@@ -101,6 +101,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Ev3RobotMessage.cs" />
+    <Compile Include="Models\Ev3UDPServer.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\SocketChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
