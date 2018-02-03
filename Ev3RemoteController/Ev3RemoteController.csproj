@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Converters\BooleanToValidityBrushColorConverter.cs" />
     <Compile Include="Converters\ConnectionStatusToBooleanConverter.cs" />
+    <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

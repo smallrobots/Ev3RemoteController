@@ -19,6 +19,7 @@
                 <ResourceDictionary>
                     <converters:BooleanToValidityBrushColorConverter x:Key="BooleanToValidityBrushColorConverter"/>
                     <converters:ConnectionStatusToBooleanConverter x:Key="ConnectionStatusToBooleanConverter"/>
+                    <converters:StringFormatConverter x:Key="StringFormatConverter"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

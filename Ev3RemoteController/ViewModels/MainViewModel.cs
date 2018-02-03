@@ -7,6 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Smallrobots.Ev3RemoteController.Models;
 using Windows.Storage;
+using Windows.UI.Core;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Xaml;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Smallrobots.Ev3RemoteController.ViewModels
 {
@@ -270,12 +274,45 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
         }
         #endregion
 
+        #region Properties about the Ev3 robot and the Ev3 Server
+        Ev3TrackedExplor3rModel robotModel;
+        /// <summary>
+        /// Gets or sets the robot model
+        /// </summary>
+        public Ev3TrackedExplor3rModel RobotModel
+        {
+            get => robotModel;
+            set
+            {
+                robotModel = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        Ev3UDPServer udpServer;
+        /// <summary>
+        /// Gets or sets the udp server
+        /// </summary>
+        public Ev3UDPServer UdpServer
+        {
+            get => udpServer;
+            set
+            {
+                udpServer = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Default constructor
         /// </summary>
         public MainViewModel()
         {
+            // Initialize the DispatcherHelper
+            DispatcherHelper.Initialize();
+
             // Listen to self PropertyChanged event
             PropertyChanged += MainViewModel_PropertyChanged;
 
@@ -291,6 +328,9 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
             ConnectionLog = "Ev3 Remote Controller";
             ConnectionLog += "\nConnection Log";
             connectionLog += "\n" + DateTime.Now.ToString();
+
+            // Create the robot model and the udp server
+            RobotModel = new Ev3TrackedExplor3rModel();
 
             // Verify current ConnectionStatus
             InitialConnectionStatus();
@@ -400,6 +440,30 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
         void Connect_Execute()
         {
             ConnectionStatus = ConnectionState.Connected;
+
+            // Create the UDP Server
+            UdpServer = new Ev3UDPServer(robotIpAddress, robotIPPort,
+                                         controllerIpAddress, controllerIPPort,
+                                         RobotModel);
+
+            //// Subscribe to property changed event to intercept the log
+            //UdpServer.PropertyChanged += async (object sender, System.ComponentModel.PropertyChangedEventArgs e) =>
+            //{
+            //    //CoreWindow window = CoreWindow.GetForCurrentThread();
+            //    //CoreDispatcher dispatcher = window.Dispatcher;
+            //    await Window.Current.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            //        //UI code here           
+            //        Ev3UDPServer sc = (Ev3UDPServer)sender;
+            //        if (e.PropertyName.Equals("LogString"))
+            //        {
+            //            ConnectionLog += sc.LogString;
+            //        }
+            //    });
+            //};
+
+            // Start the server
+            UdpServer.Start();
+
             VerifyAllCanExecuteCommands();
         }
 
@@ -419,6 +483,10 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
         void Disconnect_Execute()
         {
             ConnectionStatus = ConnectionState.CanConnect_Or_Ping;
+
+            // Stop the server
+            UdpServer.Stop();
+
             VerifyAllCanExecuteCommands();
         }
 
