@@ -15,7 +15,7 @@ namespace Smallrobots.Ev3RemoteController.Models
 {
     public class Ev3RobotModel : Model
     {
-        #region Properties
+        #region Ev3 Robot telemetry properties
         int batteryLevel = 0;
         /// <summary>
         /// Gets or private sets the battery level
@@ -37,6 +37,56 @@ namespace Smallrobots.Ev3RemoteController.Models
         }
         #endregion
 
+        #region Command to the Ev3 Robot properties
+        int forwardCommand = 0;
+        /// <summary>
+        /// Gets or sets the forward command (negative values mean backward)
+        /// Allowed range [-1000, 1000]
+        /// </summary>
+        public int ForwardCommand
+        {
+            get => forwardCommand;
+            set
+            {
+                if ((value >= -1000) && (value <= 1000))
+                {
+                    forwardCommand = value;
+                    RaisePropertyChanged();
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("ForwardCommand", value, 
+                        "Forward value must be within the range [-1000,1000]");
+                }
+            }
+        }
+
+        int turnCommand = 0;
+        /// <summary>
+        /// Gets or sets the turn command 
+        /// Positive values mean turn to right,
+        /// Negative values mean turn to left)
+        /// Allowed range [-1000, 1000]
+        /// </summary>
+        public int TurnCommand
+        {
+            get => turnCommand;
+            set
+            {
+                if ((value >= -1000) && (value <= 1000))
+                {
+                    turnCommand = value;
+                    RaisePropertyChanged();
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("TurnCommand", value,
+                        "Forward value must be within the range [-1000,1000]");
+                }
+            }
+        }
+        #endregion
+
         #region Public Methods
         /// <summary>
         /// Create a new outbound message
@@ -45,6 +95,11 @@ namespace Smallrobots.Ev3RemoteController.Models
         public Ev3RobotMessage CreateOutboundMessage()
         {
             Ev3RobotMessage message = new Ev3RobotMessage();
+
+            message.MessageFunction = MessageType.command;
+            message.ForwardCommand = ForwardCommand;
+            message.TurnCommand = TurnCommand;
+
             return message;
         }
 

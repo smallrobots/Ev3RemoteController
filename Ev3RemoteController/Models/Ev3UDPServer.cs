@@ -48,6 +48,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// Timer to send outobound UDP packet to the robot
         /// </summary>
         ThreadPoolTimer senderTimer;
+        int samplingPeriod = 200;
 
         Task receiverTask;
         #endregion
@@ -124,7 +125,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         public async void Start()
         {
             // Start the timer
-            senderTimer = ThreadPoolTimer.CreatePeriodicTimer(sender, new TimeSpan(0, 0, 0, 0, 100));
+            senderTimer = ThreadPoolTimer.CreatePeriodicTimer(sender, new TimeSpan(0, 0, 0, 0, samplingPeriod));
             // receiverTask = new Task(receiver);
 
             // Bind the inbound socket
@@ -136,14 +137,20 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// <summary>
         /// Stop the UDP Server
         /// </summary>
-        public void Stop()
+        public async void Stop()
         {
             // Stop the timer
             senderTimer.Cancel();
             sendUnSubscribeMessage();
+            await Task.Delay(5 * samplingPeriod);
 
-            // Stop the receiver and wait for termination
+            // Close the inbound socket
             udpListener.Dispose();
+            udpListener = null;
+
+            // Close the outbound socket
+            // udpSender.Dispose();
+            udpSender = null;
         }
         #endregion
 
@@ -169,6 +176,11 @@ namespace Smallrobots.Ev3RemoteController.Models
                 await udpSender.ConnectAsync(remoteHostName, remoteHostPort.ToString());
 
                 sendSubscribeMessage();
+            }
+            else
+            {
+                // Send UDP message on the already open DatagramSocket
+                sendCommandMessage();
             }
 
         }
@@ -196,6 +208,38 @@ namespace Smallrobots.Ev3RemoteController.Models
                 writer = new DataWriter(udpSender.OutputStream);
                 writer.WriteString(serializedMessage);
                 await writer.StoreAsync();
+                LogString = "\nMessage sent";
+            }
+        }
+
+        async void sendCommandMessage()
+        {
+            if (udpSender != null)
+            {
+                // Prepare the subscribe message
+                Ev3RobotMessage message = RobotModel.CreateOutboundMessage();
+                message.MessageFunction = MessageType.command;
+                message.RemoteControllerAddress = controllerIpAddress.ToString();
+                message.RemoteControllerPort = controllerIpPort.ToString();
+
+                // Encode the message
+                string serializedMessage = JsonConvert.SerializeObject(message);
+
+                // Send the message
+                LogString = "\nSending command message";
+                DataWriter writer;
+
+                writer = new DataWriter(udpSender.OutputStream);
+                writer.WriteString(serializedMessage);
+                try
+                {
+                    await writer.StoreAsync();
+                }
+                catch (Exception ex)
+                {
+                    LogString = "\nExcpetion in Ev3UDPServer.sendCommandMessage() " + ex.Message;
+                    udpSender = null;
+                }
                 LogString = "\nMessage sent";
             }
         }

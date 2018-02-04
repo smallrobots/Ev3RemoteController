@@ -62,6 +62,9 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
                     else
                         leftThumbStickX = 0;
                     RaisePropertyChanged();
+
+                    // Update the robot model
+                    RobotModel.TurnCommand = (int)(leftThumbStickX * 1000);
                 }
             }
         }
@@ -82,6 +85,9 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
                     else
                         leftThumbStickY = 0;
                     RaisePropertyChanged();
+
+                    // Update the robot model
+                    RobotModel.ForwardCommand = (int)(leftThumbStickY * 1000);
                 }
             }
         }

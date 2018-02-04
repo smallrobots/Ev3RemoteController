@@ -20,7 +20,7 @@ namespace Smallrobots.Ev3RemoteController.Models
     /// </summary>
     public class Ev3RobotMessage : Model
     {
-        #region Properties
+        #region Communication properties
         [JsonIgnore]
         int messageId = 0;
         /// <summary>
@@ -148,7 +148,9 @@ namespace Smallrobots.Ev3RemoteController.Models
                 RaisePropertyChanged();
             }
         }
+        #endregion
 
+        #region Telemetry properties
         [JsonIgnore]
         int batteryLevel = 0;
         /// <summary>
@@ -162,6 +164,60 @@ namespace Smallrobots.Ev3RemoteController.Models
             {
                 batteryLevel = value;
                 RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Command properties
+        [JsonIgnore]
+        int forwardCommand = 0;
+        [JsonProperty("forward_command")]
+        /// <summary>
+        /// Gets or sets the forward command (negative values mean backward)
+        /// Allowed range [-1000, 1000]
+        /// </summary>
+        public int ForwardCommand
+        {
+            get => forwardCommand;
+            set
+            {
+                if ((value >= -1000) && (value <= 1000))
+                {
+                    forwardCommand = value;
+                    RaisePropertyChanged();
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("ForwardCommand", value,
+                        "Forward value must be within the range [-1000,1000]");
+                }
+            }
+        }
+
+        [JsonIgnore]
+        int turnCommand = 0;
+        [JsonProperty("turn_command")]
+        /// <summary>
+        /// Gets or sets the turn command 
+        /// Positive values mean turn to right,
+        /// Negative values mean turn to left)
+        /// Allowed range [-1000, 1000]
+        /// </summary>
+        public int TurnCommand
+        {
+            get => turnCommand;
+            set
+            {
+                if ((value >= -1000) && (value <= 1000))
+                {
+                    turnCommand = value;
+                    RaisePropertyChanged();
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("TurnCommand", value,
+                        "Forward value must be within the range [-1000,1000]");
+                }
             }
         }
         #endregion
