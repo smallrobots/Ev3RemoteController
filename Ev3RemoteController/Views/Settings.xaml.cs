@@ -163,6 +163,9 @@ namespace Smallrobots.Ev3RemoteController.Views
         }
         #endregion
 
+        /// <summary>
+        /// This is used to avoid that Gamepad switches from one page to the other
+        /// </summary>
         private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Up ||

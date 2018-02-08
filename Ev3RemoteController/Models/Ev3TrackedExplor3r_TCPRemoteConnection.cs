@@ -140,7 +140,7 @@ namespace Smallrobots.Ev3RemoteController.Models
             return true;
         }
 
-        public async Task StartConnection()
+        public void StartConnection()
         {
             // Start the update timer
             updateTimer = ThreadPoolTimer.CreatePeriodicTimer(updateRemoteEv3Host, new TimeSpan(0, 0, 0, 0, 100));
@@ -148,7 +148,7 @@ namespace Smallrobots.Ev3RemoteController.Models
             Connected = true;
          }
 
-        public async Task StopConnection()
+        public void StopConnection()
         {
             // Stop the update timer
             updateTimer.Cancel();

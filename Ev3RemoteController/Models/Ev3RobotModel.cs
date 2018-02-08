@@ -23,7 +23,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         public int BatteryLevel
         {
             get => batteryLevel;
-            private set
+            protected set
             {
                 batteryLevel = value;
                 RaisePropertyChanged();
@@ -92,7 +92,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// Create a new outbound message
         /// </summary>
         /// <returns>New message</returns>
-        public Ev3RobotMessage CreateOutboundMessage()
+        public virtual Ev3RobotMessage CreateOutboundMessage()
         {
             Ev3RobotMessage message = new Ev3RobotMessage();
 
@@ -107,7 +107,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// Process the incoming message
         /// </summary>
         /// <param name="messageIn">JSON encoded incoming message</param>
-        public void ProcessIncomingMessage(string messageIn)
+        public virtual void ProcessIncomingMessage(string messageIn)
         {
             Ev3RobotMessage theMessage = JsonConvert.DeserializeObject<Ev3RobotMessage>(messageIn);
             DispatcherHelper.CheckBeginInvokeOnUI( ()=> BatteryLevel = theMessage.BatteryLevel);

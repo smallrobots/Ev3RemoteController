@@ -49,8 +49,6 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// </summary>
         ThreadPoolTimer senderTimer;
         int samplingPeriod = 200;
-
-        Task receiverTask;
         #endregion
 
         #region Properties

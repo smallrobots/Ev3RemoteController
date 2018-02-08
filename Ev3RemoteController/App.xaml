@@ -20,6 +20,7 @@
                     <converters:BooleanToValidityBrushColorConverter x:Key="BooleanToValidityBrushColorConverter"/>
                     <converters:ConnectionStatusToBooleanConverter x:Key="ConnectionStatusToBooleanConverter"/>
                     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+                    <converters:SpeedToRotationConverter x:Key="SpeedToRotationConverter"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

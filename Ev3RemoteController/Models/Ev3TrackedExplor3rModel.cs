@@ -5,6 +5,8 @@
 // Copyright Smallrobots.it 2017 //
 ///////////////////////////////////
 
+using GalaSoft.MvvmLight.Threading;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -112,8 +114,8 @@ namespace Smallrobots.Ev3RemoteController.Models
         }
         #endregion
 
-        #region Status of the robot as Properties
-        private ulong lastSampleID;
+        #region Robot Telemetry
+        ulong lastSampleID;
         /// <summary>
         /// Gets the ID of the last sample
         /// </summary>
@@ -128,6 +130,59 @@ namespace Smallrobots.Ev3RemoteController.Models
                     RaisePropertyChanged();
                 }
             }
+        }
+
+        int leftMotorSpeed = 0;
+        /// <summary>
+        /// Gets or sets the left motor speed telemetry
+        /// </summary>
+        public int LeftMotorSpeed
+        {
+            get => -leftMotorSpeed;
+            protected set
+            {
+                leftMotorSpeed = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        int rightMotorSpeed = 0;
+        /// <summary>
+        /// Gets or sets the right motor speed telemetry
+        /// </summary>
+        public int RightMotorSpeed
+        {
+            get => -rightMotorSpeed;
+            protected set
+            {
+                rightMotorSpeed = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Public methods
+        /// <summary>
+        /// Create a new outbound message
+        /// </summary>
+        /// <returns>New message</returns>
+        public override Ev3RobotMessage CreateOutboundMessage()
+        {
+            Ev3TrackedExplor3rMessage message = new Ev3TrackedExplor3rMessage(base.CreateOutboundMessage());
+            return message;
+        }
+
+        /// <summary>
+        /// Process the incoming message
+        /// </summary>
+        /// <param name="messageIn">JSON encoded incoming message</param>
+        public override void ProcessIncomingMessage(string messageIn)
+        {
+            // Call base method
+            base.ProcessIncomingMessage(messageIn);
+            Ev3TrackedExplor3rMessage theMessage = JsonConvert.DeserializeObject<Ev3TrackedExplor3rMessage>(messageIn);
+            DispatcherHelper.CheckBeginInvokeOnUI(() => RightMotorSpeed = theMessage.RightMotorSpeed);
+            DispatcherHelper.CheckBeginInvokeOnUI(() => LeftMotorSpeed = theMessage.LeftMotorSpeed);
         }
         #endregion
     }

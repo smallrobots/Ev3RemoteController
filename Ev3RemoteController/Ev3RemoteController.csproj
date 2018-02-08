@@ -97,11 +97,13 @@
     </Compile>
     <Compile Include="Converters\BooleanToValidityBrushColorConverter.cs" />
     <Compile Include="Converters\ConnectionStatusToBooleanConverter.cs" />
+    <Compile Include="Converters\SpeedToRotationConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Ev3RobotMessage.cs" />
+    <Compile Include="Models\Ev3TrackedExplor3rMessage.cs" />
     <Compile Include="Models\Ev3UDPServer.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\SocketChecker.cs" />
@@ -109,6 +111,9 @@
     <Compile Include="Models\Ev3RobotModel.cs" />
     <Compile Include="Models\Ev3TrackedExplor3rModel.cs" />
     <Compile Include="Models\Ev3TrackedExplor3r_TCPRemoteConnection.cs" />
+    <Compile Include="UserControls\SpeedGauge.xaml.cs">
+      <DependentUpon>SpeedGauge.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\About.xaml.cs">
@@ -151,6 +156,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\SpeedGauge.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\About.xaml">
       <SubType>Designer</SubType>
