@@ -166,6 +166,22 @@ namespace Smallrobots.Ev3RemoteController.Models
                 RaisePropertyChanged();
             }
         }
+
+        [JsonIgnore]
+        int batteryAmperage = 0;
+        /// <summary>
+        /// Gets or sets the battery measured current in microAmps
+        /// </summary>
+        [JsonProperty("battery_amperage")]
+        public int BatteryAmperage
+        {
+            get => batteryAmperage;
+            set
+            {
+                batteryAmperage = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         #region Command properties

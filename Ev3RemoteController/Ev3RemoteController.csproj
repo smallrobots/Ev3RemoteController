@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Smallrobots.Ev3RemoteController</RootNamespace>
     <AssemblyName>Ev3RemoteController</AssemblyName>
-    <DefaultLanguage>en-us</DefaultLanguage>
+    <DefaultLanguage>it-it</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
@@ -110,7 +110,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Ev3RobotModel.cs" />
     <Compile Include="Models\Ev3TrackedExplor3rModel.cs" />
-    <Compile Include="Models\Ev3TrackedExplor3r_TCPRemoteConnection.cs" />
+    <Compile Include="UserControls\PolarGauge.xaml.cs">
+      <DependentUpon>PolarGauge.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SpeedGauge.xaml.cs">
       <DependentUpon>SpeedGauge.xaml</DependentUpon>
     </Compile>
@@ -119,8 +121,8 @@
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RobotControl.xaml.cs">
-      <DependentUpon>RobotControl.xaml</DependentUpon>
+    <Compile Include="Views\RobotTelemetry.xaml.cs">
+      <DependentUpon>RobotTelemetry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -141,6 +143,8 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <None Include="UserControls\Drawings\Gauge -100 100.svg" />
+    <None Include="UserControls\Drawings\Gauge 0-100.svg" />
     <None Include="Views\VisualStateManager.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +161,14 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <None Include="UserControls\Drawings\Gauge -100 100.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <Page Include="UserControls\PolarGauge.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\SpeedGauge.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -165,7 +177,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RobotControl.xaml">
+    <Page Include="Views\RobotTelemetry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

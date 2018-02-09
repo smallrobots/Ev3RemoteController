@@ -18,7 +18,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         #region Ev3 Robot telemetry properties
         int batteryLevel = 0;
         /// <summary>
-        /// Gets or private sets the battery level
+        /// Gets or protected sets the battery level
         /// </summary>
         public int BatteryLevel
         {
@@ -31,9 +31,35 @@ namespace Smallrobots.Ev3RemoteController.Models
             }
         }
 
+        /// <summary>
+        /// Gets a string representing the battery charge in Volts
+        /// </summary>
         public string BatteryLevelAsFloat
         {
             get => ((double)batteryLevel / 1000000).ToString("N2");
+        }
+
+        int batteryAmperage = 0;
+        /// <summary>
+        /// Gets or protected sets the battery amperage
+        /// </summary>
+        public int BatteryAmperage
+        {
+            get => batteryAmperage;
+            protected set
+            {
+                batteryAmperage = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("BatteryAmperageAsFloat");
+            }
+        }
+
+        /// <summary>
+        /// Gets a string representing the battery draining in mA
+        /// </summary>
+        public string BatteryAmperageAsFloat
+        {
+            get=> ((double)batteryAmperage / 1000000).ToString("N2");
         }
         #endregion
 
@@ -111,7 +137,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         {
             Ev3RobotMessage theMessage = JsonConvert.DeserializeObject<Ev3RobotMessage>(messageIn);
             DispatcherHelper.CheckBeginInvokeOnUI( ()=> BatteryLevel = theMessage.BatteryLevel);
-            
+            DispatcherHelper.CheckBeginInvokeOnUI(() => BatteryAmperage = theMessage.BatteryAmperage);
         }
         #endregion
     }

@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="030870d5-f834-4f02-9acf-aa9a1c6fbb37" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Ev3RemoteController</DisplayName>
-    <PublisherDisplayName>Oreste Riccardo Natale</PublisherDisplayName>
+    <PublisherDisplayName>Smallrobots.it</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

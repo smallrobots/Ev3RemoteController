@@ -1,0 +1,98 @@
+﻿<UserControl
+    x:Class="Smallrobots.Ev3RemoteController.Views.RobotTelemetry"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Smallrobots.Ev3RemoteController.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:Smallrobots.Ev3RemoteController.UserControls"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="700"
+    
+    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}" >
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+         <!--Polar Gauge--> 
+        <Viewbox Grid.Row="0" Grid.Column="0"
+                 StretchDirection="Both" Stretch="Uniform" Width="450">
+            <uc:PolarGauge/>        
+        </Viewbox>
+        <!-- Tachometers -->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <!-- Left Motor -->
+            <Viewbox Grid.Row="0" Grid.Column="0"
+                     StretchDirection="Both" Stretch="Uniform" Width="250">
+                <uc:SpeedGauge Speed="{Binding RobotModel.LeftMotorSpeed}" Margin="5"/>
+            </Viewbox>
+            <TextBlock Grid.Row="1" Grid.Column="0"
+                       Text="Left Motor Speed"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       Style="{StaticResource BodyTextBlockStyle}"/>
+            <!-- Right Motor-->
+            <Viewbox Grid.Row="0" Grid.Column="1"
+                     StretchDirection="Both" Stretch="Uniform" Width="250">
+                <uc:SpeedGauge Speed="{Binding RobotModel.RightMotorSpeed}" Margin="5"/>
+            </Viewbox>
+            <TextBlock Grid.Row="1" Grid.Column="1"
+                       Text="Right Motor Speed"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       Style="{StaticResource BodyTextBlockStyle}"/>
+
+        </Grid>
+        <!-- Battery status -->
+        <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Header -->
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                       Text="Battery status"
+                       Margin="5"
+                       Style="{StaticResource BodyTextBlockStyle}"/>
+            <!-- Battery Voltage -->
+            <TextBlock Grid.Row="1" Grid.Column="0" 
+                       Text="Voltage (V)"
+                       Margin="5"
+                       Style="{StaticResource BodyTextBlockStyle}"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" 
+                       Text="{Binding RobotModel.BatteryLevelAsFloat}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+            <!-- Battery Amperage -->
+            <TextBlock Grid.Row="2" Grid.Column="0" 
+                       Text="Amperage (mA)"
+                       Margin="5"
+                       Style="{StaticResource BodyTextBlockStyle}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" 
+                       Text="{Binding RobotModel.BatteryAmperage}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+        </Grid>
+    </Grid>
+</UserControl>

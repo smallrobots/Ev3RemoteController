@@ -13,7 +13,7 @@ namespace Smallrobots.Ev3RemoteController.Views
     /// <summary>
     /// Pagina vuota che può essere usata autonomamente oppure per l'esplorazione all'interno di un frame.
     /// </summary>
-    public sealed partial class Settings : Page
+    public sealed partial class Settings : UserControl
     {
         #region Properties and fields about the GamePad
         double leftThumbStickX;
@@ -73,20 +73,23 @@ namespace Smallrobots.Ev3RemoteController.Views
         #endregion
 
         #region Constructor
-    public Settings()
-    {
-        InitializeComponent();
-        Loaded += MainPage_Loaded;
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public Settings()
+        {
+            InitializeComponent();
+            Loaded += MainPage_Loaded;
 
-        // Gamecontroller
-        gameControllerUpdateTimer = new DispatcherTimer();
-        gameControllerUpdateTimer.Tick += gameControllerUpdateTimer_Callback;
-        gameControllerUpdateTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            // Gamecontroller
+            gameControllerUpdateTimer = new DispatcherTimer();
+            gameControllerUpdateTimer.Tick += gameControllerUpdateTimer_Callback;
+            gameControllerUpdateTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
 
-        GameControllerConnected = false;
-        Gamepad.GamepadAdded += Gamepad_GamepadAdded;
-        Gamepad.GamepadRemoved += Gamepad_GamepadRemoved;
-    }
+            GameControllerConnected = false;
+            Gamepad.GamepadAdded += Gamepad_GamepadAdded;
+            Gamepad.GamepadRemoved += Gamepad_GamepadRemoved;
+        }
         #endregion
 
         #region UI event handlers
@@ -163,6 +166,7 @@ namespace Smallrobots.Ev3RemoteController.Views
         }
         #endregion
 
+        #region UI Handlers
         /// <summary>
         /// This is used to avoid that Gamepad switches from one page to the other
         /// </summary>
@@ -186,5 +190,6 @@ namespace Smallrobots.Ev3RemoteController.Views
                 e.Handled = true;
             }
         }
+        #endregion
     }
 }

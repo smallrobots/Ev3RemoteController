@@ -124,7 +124,6 @@ namespace Smallrobots.Ev3RemoteController.Models
         {
             // Start the timer
             senderTimer = ThreadPoolTimer.CreatePeriodicTimer(sender, new TimeSpan(0, 0, 0, 0, samplingPeriod));
-            // receiverTask = new Task(receiver);
 
             // Bind the inbound socket
             udpListener = new DatagramSocket();
@@ -200,13 +199,13 @@ namespace Smallrobots.Ev3RemoteController.Models
                 string serializedMessage = JsonConvert.SerializeObject(message);
 
                 // Send the message
-                LogString = "\nSending subscribe message";
+                // LogString = "\nSending subscribe message";
                 DataWriter writer;
 
                 writer = new DataWriter(udpSender.OutputStream);
                 writer.WriteString(serializedMessage);
                 await writer.StoreAsync();
-                LogString = "\nMessage sent";
+                // LogString = "\nMessage sent";
             }
         }
 
@@ -224,7 +223,7 @@ namespace Smallrobots.Ev3RemoteController.Models
                 string serializedMessage = JsonConvert.SerializeObject(message);
 
                 // Send the message
-                LogString = "\nSending command message";
+                // LogString = "\nSending command message";
                 DataWriter writer;
 
                 writer = new DataWriter(udpSender.OutputStream);
@@ -238,7 +237,7 @@ namespace Smallrobots.Ev3RemoteController.Models
                     LogString = "\nExcpetion in Ev3UDPServer.sendCommandMessage() " + ex.Message;
                     udpSender = null;
                 }
-                LogString = "\nMessage sent";
+                // LogString = "\nMessage sent";
             }
         }
 

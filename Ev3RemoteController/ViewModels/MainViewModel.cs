@@ -452,20 +452,16 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
                                          controllerIpAddress, controllerIPPort,
                                          RobotModel);
 
-            //// Subscribe to property changed event to intercept the log
-            //UdpServer.PropertyChanged += async (object sender, System.ComponentModel.PropertyChangedEventArgs e) =>
-            //{
-            //    //CoreWindow window = CoreWindow.GetForCurrentThread();
-            //    //CoreDispatcher dispatcher = window.Dispatcher;
-            //    await Window.Current.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-            //        //UI code here           
-            //        Ev3UDPServer sc = (Ev3UDPServer)sender;
-            //        if (e.PropertyName.Equals("LogString"))
-            //        {
-            //            ConnectionLog += sc.LogString;
-            //        }
-            //    });
-            //};
+            // Subscribe to property changed event to intercept the log
+            UdpServer.PropertyChanged += (object sender, System.ComponentModel.PropertyChangedEventArgs e) =>
+            {
+                //UI code here           
+                Ev3UDPServer sc = (Ev3UDPServer)sender;
+                if (e.PropertyName.Equals("LogString"))
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => ConnectionLog += sc.LogString);                    
+                }
+            };
 
             // Start the server
             UdpServer.Start();
