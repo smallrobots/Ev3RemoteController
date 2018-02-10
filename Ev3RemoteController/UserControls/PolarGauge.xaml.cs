@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // Il modello di elemento Controllo utente è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -19,6 +7,24 @@ namespace Smallrobots.Ev3RemoteController.UserControls
 {
     public sealed partial class PolarGauge : UserControl
     {
+        /// <summary>
+        /// Gets or sets the Angle
+        /// </summary>
+        public string NeedleAngle
+        {
+            get => (string)GetValue(AngleProperty);
+            set => SetValue(AngleProperty, value);
+        }
+
+        /// <summary>
+        /// Angle
+        /// </summary>
+        public static readonly DependencyProperty AngleProperty
+            = DependencyProperty.Register("NeedleAngle", typeof(string), typeof(PolarGauge), null);
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public PolarGauge()
         {
             this.InitializeComponent();

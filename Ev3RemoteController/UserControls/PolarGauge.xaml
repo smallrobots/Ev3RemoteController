@@ -1,115 +1,139 @@
 ﻿<UserControl
-    x:Class="Smallrobots.Ev3RemoteController.UserControls.PolarGauge"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Smallrobots.Ev3RemoteController.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="using:Smallrobots.Ev3RemoteController.Converters" x:Name="userControl"
+    x:Class="Smallrobots.Ev3RemoteController.UserControls.PolarGauge"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <Converters:PolarGuage_AngleToRotationConverter x:Key="PolarGuage_AngleToRotationConverter"/>
+    </UserControl.Resources>
+
+    <!--Margin="85,85,99,77"-->
+
     <Grid>
-        <!--This file is compatible with Silverlight-->
-        <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="svg8" Width="209.99997" Height="114.18086">
-            <Canvas.RenderTransform>
-                <TranslateTransform X="0" Y="0"/>
-            </Canvas.RenderTransform>
-            <Canvas.Resources/>
-            <!--Unknown tag: sodipodi:namedview-->
-            <!--Unknown tag: metadata-->
-            <Canvas Name="layer1">
+        <Viewbox StretchDirection="Both" Stretch="Uniform" 
+                 Width="450">
+            <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:Name="svg8" Margin="0,0,182,156">
                 <Canvas.RenderTransform>
-                    <TranslateTransform X="-20.734478" Y="-117.82479"/>
+                    <TranslateTransform X="-14" Y="0"/>
                 </Canvas.RenderTransform>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path817" StrokeThickness="0.28828168" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 20.734478 225.90674 H 230.73445"/>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path848" StrokeThickness="0.26318637" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 125.73446 228.63995 V 118.33573"/>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path850" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.2, 0.8" Data="m 135.63117 -226.94016 a 9.8967152 9.8967152 0 0 1 -4.94835 8.57081 9.8967152 9.8967152 0 0 1 -9.89672 0 9.8967152 9.8967152 0 0 1 -4.94836 -8.57081 l 9.89672 0 z">
-                    <Path.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path852" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" Data="m 145.52789 -226.83687 a 19.79343 19.79343 0 0 1 -9.89672 17.14162 19.79343 19.79343 0 0 1 -19.79343 -1e-5 19.79343 19.79343 0 0 1 -9.89671 -17.14161 l 19.79343 0 z">
-                    <Path.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path854" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.2, 0.8" Data="m 155.4246 -226.73358 a 29.690145 29.690145 0 0 1 -14.84507 25.71242 29.690145 29.690145 0 0 1 -29.69014 0 29.690145 29.690145 0 0 1 -14.845077 -25.71242 l 29.690147 0 z">
-                    <Path.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path856" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" Data="m 165.32132 -226.63029 a 39.586861 39.586861 0 0 1 -19.79343 34.28322 39.586861 39.586861 0 0 1 -39.58686 0 39.586861 39.586861 0 0 1 -19.793432 -34.28323 l 39.586862 1e-5 z">
-                    <Path.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path858" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.2, 0.8" Data="m 175.21804 -226.52701 a 49.483578 49.483578 0 0 1 -24.74179 42.85404 49.483578 49.483578 0 0 1 -49.48358 0 49.483578 49.483578 0 0 1 -24.741789 -42.85404 l 49.483579 0 z">
-                    <Path.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path860" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" Data="m 185.11475 -226.42372 a 59.380291 59.380291 0 0 1 -29.69015 51.42484 59.380291 59.380291 0 0 1 -59.380288 0 59.380291 59.380291 0 0 1 -29.690144 -51.42484 l 59.380292 0 z">
-                    <Path.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path862" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.2, 0.6" Data="m 195.01147 -226.32043 a 69.277008 69.277008 0 0 1 -34.63851 59.99564 69.277008 69.277008 0 0 1 -69.277007 0 69.277008 69.277008 0 0 1 -34.638502 -59.99565 l 69.277009 1e-5 z">
-                    <Path.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path864" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" Data="m 204.90818 -226.21715 a 79.173721 79.173721 0 0 1 -39.58686 68.56646 79.173721 79.173721 0 0 1 -79.173724 -1e-5 79.173721 79.173721 0 0 1 -39.586858 -68.56645 l 79.173722 0 z">
-                    <Path.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path868" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.2, 0.6" Data="m 214.80489 -226.11386 a 89.070435 89.070435 0 0 1 -44.53521 77.13726 89.070435 89.070435 0 0 1 -89.070441 0 89.070435 89.070435 0 0 1 -44.535215 -77.13727 l 89.070436 1e-5 z">
-                    <Path.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path870" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" Data="m 224.70161 -226.01057 a 98.967155 98.967155 0 0 1 -49.48357 85.70807 98.967155 98.967155 0 0 1 -98.967161 -1e-5 98.967155 98.967155 0 0 1 -49.483576 -85.70807 l 98.967157 1e-5 z">
-                    <Path.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                    </Path.RenderTransform>
-                </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path1314" StrokeThickness="0.142" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.142, 0.568" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 125.41503 226.76275 175.2057 140.5228"/>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path1374" StrokeThickness="0.142" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.142, 0.568" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 125.18217 226.52988 86.23996 -49.79065"/>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path1376" StrokeThickness="0.142" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.142, 0.568" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 126.3436 226.41219 40.103867 176.62152"/>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path1378" StrokeThickness="0.142" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.142, 0.568" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 126.11074 226.64505 76.320116 140.4051"/>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="10.58333302" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="144.99371" Canvas.Top="223.7" Name="text1382"/>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="4.3924551" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="142.64082" Canvas.Top="227.6" Name="text1386">
-      <Span  FontSize="4.3924551">20</Span>
-                </TextBlock>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="4.3924551" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="162.74889" Canvas.Top="227.6" Name="text1390">
-      <Span  FontSize="4.3924551">40</Span>
-                </TextBlock>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="4.3924551" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="182.32779" Canvas.Top="227.6" Name="text1394">
-      <Span  FontSize="4.3924551">60</Span>
-                </TextBlock>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="4.3924551" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="201.90669" Canvas.Top="227.6" Name="text1398">
-      <Span  FontSize="4.3924551">80</Span>
-                </TextBlock>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="4.3924551" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="220.42728" Canvas.Top="227.6" Name="text1402">
-      <Span  FontSize="4.3924551">100</Span>
-                </TextBlock>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="4.3924551" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="173.69754" Canvas.Top="134" Name="text1406">
-      <Span  FontSize="4.3924551">30°</Span>
-                </TextBlock>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="4.3924551" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="212.79907" Canvas.Top="171.4" Name="text1410">
-      <Span  FontSize="4.3924551">60°</Span>
-                </TextBlock>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="4.3924551" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="127.86082" Canvas.Top="121.1" Name="text1414">
-      <Span  FontSize="4.3924551">0°</Span>
-                </TextBlock>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="4.3924551" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="70.226799" Canvas.Top="134" Name="text1418">
-      <Span  FontSize="4.3924551">-30°</Span>
-                </TextBlock>
-                <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="4.3924551" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" Canvas.Left="30.766006" Canvas.Top="171.4" Name="text1422">
-      <Span  FontSize="4.3924551">-60°</Span>
-                </TextBlock>
+                <!--Unknown tag: sodipodi:namedview-->
+                <!--Unknown tag: metadata-->
+                <Canvas x:Name="layer1">
+                    <Canvas.RenderTransform>
+                        <TranslateTransform X="4" Y="-45"/>
+                    </Canvas.RenderTransform>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path819" StrokeThickness="0.5" Stroke="#FF00F500" StrokeMiterLimit="4" Data="m 204.43958 -164.38554 a 99.899605 99.899658 0 0 1 -49.94981 86.515639 99.899605 99.899658 0 0 1 -99.899605 -3e-6 99.899605 99.899658 0 0 1 -49.9497994 -86.515646">
+                        <Path.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path823" StrokeThickness="0.2" Stroke="#FF00F500" StrokeMiterLimit="4" StrokeDashArray="0.2, 0.8" Data="m 194.44962 -164.38554 a 89.909645 89.909691 0 0 1 -44.95483 77.864073 89.909645 89.909691 0 0 1 -89.909645 -2e-6 89.909645 89.909691 0 0 1 -44.95482 -77.864081">
+                        <Path.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path825" StrokeThickness="0.5" Stroke="#FF00F500" StrokeMiterLimit="4" Data="m 184.45109 -164.38554 a 79.911118 79.911163 0 0 1 -39.95556 69.205094 79.911118 79.911163 0 0 1 -79.911121 -2e-6 79.911118 79.911163 0 0 1 -39.955556 -69.205102">
+                        <Path.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path827" StrokeThickness="0.2" Stroke="#FF00F500" StrokeMiterLimit="4" StrokeDashArray="0.2, 0.8" Data="m 174.4622 -164.38554 a 69.922234 69.922272 0 0 1 -34.96111 60.55446 69.922234 69.922272 0 0 1 -69.922238 0 69.922234 69.922272 0 0 1 -34.961115 -60.55447">
+                        <Path.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path829" StrokeThickness="0.5" Stroke="#FF00F500" StrokeMiterLimit="4" Data="m 164.47331 -164.38554 a 59.933342 59.933372 0 0 1 -29.96667 51.90382 59.933342 59.933372 0 0 1 -59.933342 0 59.933342 59.933372 0 0 1 -29.96667 -51.90383">
+                        <Path.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path831" StrokeThickness="0.2" Stroke="#FF00F500" StrokeMiterLimit="4" StrokeDashArray="0.2, 0.8" Data="m 154.48442 -164.38554 a 49.94445 49.944477 0 0 1 -24.97223 43.25318 49.94445 49.944477 0 0 1 -49.944446 0 49.94445 49.944477 0 0 1 -24.972224 -43.25319">
+                        <Path.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path833" StrokeThickness="0.5" Stroke="#FFDCDC00" StrokeMiterLimit="4" Data="m 144.49553 -164.38554 a 39.955559 39.955582 0 0 1 -19.97778 34.60255 39.955559 39.955582 0 0 1 -39.95556 -10e-6 39.955559 39.955582 0 0 1 -19.977778 -34.60255">
+                        <Path.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path837" StrokeThickness="0.2" Stroke="#FFDCDC00" StrokeMiterLimit="4" StrokeDashArray="0.2, 0.8" Data="m 134.50664 -164.38554 a 29.966671 29.966688 0 0 1 -14.98333 25.95191 29.966671 29.966688 0 0 1 -29.966676 0 29.966671 29.966688 0 0 1 -14.983335 -25.95192">
+                        <Path.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path841" StrokeThickness="0.5" Stroke="#FFFF0000" StrokeMiterLimit="4" Data="m 124.51775 -164.38554 a 19.977779 19.977791 0 0 1 -9.98889 17.30127 19.977779 19.977791 0 0 1 -19.97778 0 19.977779 19.977791 0 0 1 -9.988889 -17.30127">
+                        <Path.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path843" StrokeThickness="0.2" Stroke="#FFFF0000" StrokeMiterLimit="4" StrokeDashArray="0.2, 0.8" Data="m 114.52886 -164.38554 a 9.9888897 9.9888954 0 0 1 -4.99444 8.65063 9.9888897 9.9888954 0 0 1 -9.988895 0 9.9888897 9.9888954 0 0 1 -4.994444 -8.65063">
+                        <Path.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path853" StrokeThickness="0.5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 4.5399753 164.28555 c 199.9999947 0 199.9999947 0 199.9999947 0"/>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path874" StrokeThickness="0.26236102" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.26236101, 1.04944405" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 104.53945 164.38555 c 0 -99.974763 0 -99.60311 0 -99.60311"/>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path876" StrokeThickness="0.26236102" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.26236101, 1.04944405" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 104.53945 164.38555 C 154.52683 77.804861 154.341 78.126722 154.341 78.126722"/>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path878" StrokeThickness="0.26236102" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.26236101, 1.04944405" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 104.53945 164.38555 c 86.58069 -49.98738 86.25882 -49.80156 86.25882 -49.80156"/>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path880" StrokeThickness="0.26236102" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.26236101, 1.04944405" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 104.53945 164.38555 C 54.552069 77.804861 54.737899 78.126722 54.737899 78.126722"/>
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path882" StrokeThickness="0.26236102" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="0.26236101, 1.04944405" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 104.53945 164.38555 C 17.958763 114.39817 18.280633 114.58399 18.280633 114.58399"/>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="25.92503166" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot946" Width="38.29678" Height="31.204819" Canvas.Left="141.42136" Canvas.Top="656.8"/>
+                </Canvas>
+                <Canvas x:Name="layer3">
+                    <Canvas.RenderTransform>
+                        <TranslateTransform X="4" Y="-45"/>
+                    </Canvas.RenderTransform>
+                    <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="102.999" Canvas.Top="162.437" Width="99.456444" Height="1.5390451" RadiusX="2.0505209" RadiusY="0.76952255" x:Name="Needle" Fill="#FF844500" StrokeThickness="0.2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                        <Rectangle.RenderTransform>
+                            <RotateTransform Angle="{Binding NeedleAngle, Converter={StaticResource PolarGuage_AngleToRotationConverter}, ElementName=userControl}"
+                                             CenterX="2.0505209" CenterY="0.76952255"/>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                </Canvas>
+                <Canvas x:Name="layer2">
+                    <Canvas.RenderTransform>
+                        <TranslateTransform X="4" Y="-45"/>
+                    </Canvas.RenderTransform>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="8" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot884" Width="16" Height="16" Canvas.Left="78" Canvas.Top="166"><!--Unknown tag: flowRegion-->
+                    <Run Text="20"/>
+                    </TextBlock>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="8" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot898" Width="19" Height="14" Canvas.Left="139" Canvas.Top="166"><!--Unknown tag: flowRegion-->
+                    <Run Text="40"/>
+                    </TextBlock>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="8" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot906" Width="15" Height="12" Canvas.Left="38" Canvas.Top="166"><!--Unknown tag: flowRegion-->
+                    <Run Text="60"/>
+                    </TextBlock>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="8" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot914" Width="23" Height="16" Canvas.Left="179" Canvas.Top="166"><!--Unknown tag: flowRegion-->
+                    <Run Text="80"/>
+                    </TextBlock>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="8" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot922" Width="24" Height="14" Canvas.Left="-4" Canvas.Top="166"><!--Unknown tag: flowRegion-->
+                    <Run Text="100"/>
+                    </TextBlock>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="8" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot930" Width="11" Height="10" Canvas.Left="102" Canvas.Top="53"><!--Unknown tag: flowRegion-->
+                    <Run Text="0°"/>
+                    </TextBlock>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="8" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot938" Width="22" Height="16" Canvas.Left="45" Canvas.Top="68"><!--Unknown tag: flowRegion-->
+                    <Run Text="30°"/>
+                    </TextBlock>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="8" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot970" Width="22" Height="14" Canvas.Left="193" Canvas.Top="105"><!--Unknown tag: flowRegion-->
+                    <Run Text="60°"/>
+                    </TextBlock>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="8" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot978" Width="20" Height="14" Canvas.Left="152" Canvas.Top="67"><!--Unknown tag: flowRegion-->
+                    <Run Text="30°"/>
+                    </TextBlock>
+                    <TextBlock xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" FontSize="8" FontWeight="Normal" FontFamily="sans-serif" FontStyle="normal" Foreground="#FF000000" TextWrapping="Wrap" x:Name="flowRoot986" Width="18" Height="14" Canvas.Left="7" Canvas.Top="106"><!--Unknown tag: flowRegion-->
+                    <Run Text="60°"/>
+                    </TextBlock>
+                </Canvas>
             </Canvas>
-        </Canvas>
+        </Viewbox>
     </Grid>
 </UserControl>

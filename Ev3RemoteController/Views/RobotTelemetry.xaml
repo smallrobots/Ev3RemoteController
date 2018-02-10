@@ -7,12 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Smallrobots.Ev3RemoteController.UserControls"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="700"
+
     
     DataContext="{Binding MainViewModel, Source={StaticResource Locator}}" >
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -23,11 +22,13 @@
         </Grid.ColumnDefinitions>
          <!--Polar Gauge--> 
         <Viewbox Grid.Row="0" Grid.Column="0"
-                 StretchDirection="Both" Stretch="Uniform" Width="450">
-            <uc:PolarGauge/>        
+                 StretchDirection="Both" Stretch="Uniform" Margin="0">
+            <uc:PolarGauge Width="490" Height="323"
+                           NeedleAngle="30"/>        
         </Viewbox>
         <!-- Tachometers -->
-        <Grid Grid.Row="1" Grid.Column="0">
+        <Grid Grid.Row="1" Grid.Column="0"
+              HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>

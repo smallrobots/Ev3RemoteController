@@ -46,7 +46,7 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
         #endregion
 
         #region Properties about the gamepad
-        double leftThumbStickX;
+        double leftThumbStickX = 0.0;
         /// <summary>
         /// Gets or sets the the X position of the Left Thubsticl
         /// </summary>
@@ -69,7 +69,7 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
             }
         }
 
-        double leftThumbStickY;
+        double leftThumbStickY = 0.0;
         /// <summary>
         /// Gets or sets the the Y position of the Left Thubsticl
         /// </summary>
@@ -88,6 +88,29 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
 
                     // Update the robot model
                     RobotModel.ForwardCommand = (int)(leftThumbStickY * 1000);
+                }
+            }
+        }
+
+        double rightThumbStickX = 0.0;
+        /// <summary>
+        /// Gets or sets the the X position of the Right Thubstick
+        /// </summary>
+        public double RightThumbStickX
+        {
+            get => rightThumbStickX;
+            set
+            {
+                if (rightThumbStickX != value)
+                {
+                    if (Math.Abs(value) > 0.05)
+                        rightThumbStickX = value;
+                    else
+                        rightThumbStickX = 0;
+                    RaisePropertyChanged();
+
+                    // Update the robot model
+                    RobotModel.TurnCommand = (int)(leftThumbStickX * 1000);
                 }
             }
         }

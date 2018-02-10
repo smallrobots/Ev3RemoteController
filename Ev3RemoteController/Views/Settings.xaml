@@ -138,23 +138,36 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <!-- Left X Position -->
                     <TextBlock Grid.Row="0" Grid.Column="0"
                                Style="{StaticResource Caption_Style}"
-                               Text="X Position"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0"
-                               Style="{StaticResource Caption_Style}"
-                               Text="Y Position"/>
+                               Text="Left X Position"/>
                     <TextBlock Grid.Row="0" Grid.Column="1"
                                Style="{StaticResource Caption_Style}"
-                               Text="{Binding LeftThumbStickX}"/>
+                               Text="{Binding LeftThumbStickX}"
+                               TextAlignment="Right"/>
+                    <!-- Left Y Position -->
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+                               Style="{StaticResource Caption_Style}"
+                               Text="Left Y Position"/>
                     <TextBlock Grid.Row="1" Grid.Column="1"
                                Style="{StaticResource Caption_Style}"
-                               Text="{Binding LeftThumbStickY}"/>
+                               Text="{Binding LeftThumbStickY}"
+                               TextAlignment="Right"/>
+                    <!-- RIght X Position -->
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                               Style="{StaticResource Caption_Style}"
+                               Text="Right X Position"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1"
+                               Style="{StaticResource Caption_Style}"
+                               Text="{Binding RightThumbStickX}"
+                               TextAlignment="Right"/>
                 </Grid>
             </Grid>
         </StackPanel>

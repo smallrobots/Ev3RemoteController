@@ -50,6 +50,23 @@ namespace Smallrobots.Ev3RemoteController.Views
             }
         }
 
+        double rightThumbStickX;
+        /// <summary>
+        /// Gets or sets the X position of the right Thumbstick
+        /// </summary>
+        public double RightThumbStickX
+        {
+            get => rightThumbStickX;
+            set
+            {
+                if (RightThumbStickX != value)
+                {
+                    rightThumbStickX = value;
+                    ((MainViewModel)DataContext).RightThumbStickX = RightThumbStickX;
+                }
+            }
+        }
+
         bool gameControllerConnected;
         /// <summary>
         /// Get or Sets the game controller connected flag
@@ -135,6 +152,7 @@ namespace Smallrobots.Ev3RemoteController.Views
                 GamepadReading readings = gamePad.GetCurrentReading();
                 LeftThumbStickX = readings.LeftThumbstickX;
                 LeftThumbStickY = readings.LeftThumbstickY;
+                RightThumbStickX = readings.RightThumbstickX;
             }
         }
 

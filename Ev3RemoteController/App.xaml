@@ -21,6 +21,7 @@
                     <converters:ConnectionStatusToBooleanConverter x:Key="ConnectionStatusToBooleanConverter"/>
                     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
                     <converters:SpeedToRotationConverter x:Key="SpeedToRotationConverter"/>
+                    <converters:PolarGuage_AngleToRotationConverter x:Key="PolarGuage_AngleToRotationConverter"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
