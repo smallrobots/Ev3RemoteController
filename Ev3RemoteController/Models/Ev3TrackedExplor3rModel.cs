@@ -16,101 +16,26 @@ namespace Smallrobots.Ev3RemoteController.Models
     public class Ev3TrackedExplor3rModel : Ev3RobotModel
     {
         #region Command to the robot as Properties
-        private int leftMotorSpeed_Command;
+        int turnHeadCommand = 0;
         /// <summary>
-        /// Gets os Sets the speed of the left motor
+        /// Gets or sets the TurnHeadCommand
         /// </summary>
-        public int LeftMotorSpeed_Command
+        public int TurnHeadCommand
         {
+            get => turnHeadCommand;
             set
             {
-                if (leftMotorSpeed_Command != value)
+                if ((value >= -1000) && (value <= 1000))
                 {
-                    leftMotorSpeed_Command = value;
+                    turnHeadCommand = value;
                     RaisePropertyChanged();
                 }
-            }
-            get
-            {
-                return leftMotorSpeed_Command;
-            }
-        }
-
-        private int rightMotorSpeed_Command;
-        /// <summary>
-        /// Gets or Sets the speed of the right motor
-        /// </summary>
-        public int RightMotorSpeed_Command
-        {
-            set
-            {
-                if (rightMotorSpeed_Command != value)
+                else
                 {
-                    rightMotorSpeed_Command = value;
-                    RaisePropertyChanged();
+                    throw new ArgumentOutOfRangeException("TurnHeadCommand", value,
+                        "TurnHeadCommand value must be within the range [-1000,1000]");
                 }
             }
-            get
-            {
-                return rightMotorSpeed_Command;
-            }
-        }
-
-        private bool rotateHeadLeft_Command;
-        /// <summary>
-        /// Gets or Sets the command to rotate the head to the left
-        /// </summary>
-        public bool RotateHeadLeft_Command
-        {
-            set
-            {
-                if (rotateHeadLeft_Command != value)
-                {
-                    rotateHeadLeft_Command = value;
-                    RaisePropertyChanged();
-                }
-            }
-            get
-            {
-                return rotateHeadLeft_Command;
-            }
-        }
-
-        private bool rotateHeadRight_Command;
-        /// <summary>
-        /// Gets or Sets the command to rotate the head to the right
-        /// </summary>
-        public bool RotateHeadRight_Command
-        {
-            set
-            {
-                if (rotateHeadRight_Command != value)
-                {
-                    rotateHeadRight_Command = value;
-                    RaisePropertyChanged();
-                }
-            }
-            get
-            {
-                return rotateHeadRight_Command;
-            }
-        }
-
-        private bool followLine;
-        /// <summary>
-        /// Gets or sets the command to follow the line
-        /// </summary>
-        public bool FollowLine
-        {
-            set
-            {
-                if (followLine != value)
-                {
-                    followLine = value;
-                    RaisePropertyChanged();
-                }
-            }
-            get => followLine;
         }
         #endregion
 
@@ -169,6 +94,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         public override Ev3RobotMessage CreateOutboundMessage()
         {
             Ev3TrackedExplor3rMessage message = new Ev3TrackedExplor3rMessage(base.CreateOutboundMessage());
+            message.TurnHeadCommand = TurnHeadCommand;
             return message;
         }
 

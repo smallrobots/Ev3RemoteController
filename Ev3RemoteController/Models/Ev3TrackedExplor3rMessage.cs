@@ -43,25 +43,51 @@ namespace Smallrobots.Ev3RemoteController.Models
         }
         #endregion
 
+        #region Command Properties
+        [JsonIgnore]
+        int turnHeadCommand = 0;
+        [JsonProperty("turn_head_command")]
+        /// <summary>
+        /// Gets or sets the TurnHeadCommand
+        /// </summary>
+        public int TurnHeadCommand
+        {
+            get => turnHeadCommand;
+            set
+            {
+                turnHeadCommand = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
         #region Constructor
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Ev3TrackedExplor3rMessage() : base()
         {
 
         }
 
+        /// <summary>
+        /// Constructor that accepts a base class instance
+        /// </summary>
+        /// <param name="baseMessage">Base class instance</param>
         public Ev3TrackedExplor3rMessage(Ev3RobotMessage baseMessage) : base()
         {
-            this.BatteryLevel = baseMessage.BatteryLevel;
-            this.ForwardCommand = baseMessage.ForwardCommand;
-            this.MessageFunction = baseMessage.MessageFunction;
-            this.MessageId = baseMessage.MessageId;
-            this.RemoteControllerAddress = baseMessage.RemoteControllerAddress;
-            this.RemoteControllerName = baseMessage.RemoteControllerName;
-            this.RemoteControllerPort = baseMessage.RemoteControllerPort;
-            this.RobotAddress = baseMessage.RobotAddress;
-            this.RobotName = baseMessage.RobotName;
-            this.RobotPort = baseMessage.RobotPort;
-            this.TurnCommand = baseMessage.TurnCommand;
+            // Copying base class propertie
+            BatteryLevel = baseMessage.BatteryLevel;
+            ForwardCommand = baseMessage.ForwardCommand;
+            MessageFunction = baseMessage.MessageFunction;
+            MessageId = baseMessage.MessageId;
+            RemoteControllerAddress = baseMessage.RemoteControllerAddress;
+            RemoteControllerName = baseMessage.RemoteControllerName;
+            RemoteControllerPort = baseMessage.RemoteControllerPort;
+            RobotAddress = baseMessage.RobotAddress;
+            RobotName = baseMessage.RobotName;
+            RobotPort = baseMessage.RobotPort;
+            TurnCommand = baseMessage.TurnCommand;
         }
         #endregion
     }
