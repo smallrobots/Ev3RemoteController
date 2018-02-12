@@ -20,12 +20,30 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-         <!--Polar Gauge--> 
-        <Viewbox Grid.Row="0" Grid.Column="0"
-                 StretchDirection="Both" Stretch="Uniform" Margin="0">
-            <uc:PolarGauge Width="490" Height="323"
-                           NeedleAngle="30"/>        
-        </Viewbox>
+         <!-- Head orientation -->
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--Polar Gauge-->
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                       Text="Head orientation"
+                       HorizontalAlignment="Center"
+                       Style="{StaticResource BaseTextBlockStyle}"/>
+            <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                     StretchDirection="Both" Stretch="Uniform" Margin="0">
+                <uc:PolarGauge Width="490" Height="323"
+                               NeedleAngle="{Binding RobotModel.HeadMotorPosition_Calibrated}"/>
+            </Viewbox>
+        </Grid>
         <!-- Tachometers -->
         <Grid Grid.Row="1" Grid.Column="0"
               HorizontalAlignment="Center">
@@ -39,7 +57,7 @@
             </Grid.ColumnDefinitions>
             <!-- Left Motor -->
             <Viewbox Grid.Row="0" Grid.Column="0"
-                     StretchDirection="Both" Stretch="Uniform" Width="250">
+                     StretchDirection="Both" Stretch="Uniform" Width="225">
                 <uc:SpeedGauge Speed="{Binding RobotModel.LeftMotorSpeed}" Margin="5"/>
             </Viewbox>
             <TextBlock Grid.Row="1" Grid.Column="0"
@@ -49,51 +67,125 @@
                        Style="{StaticResource BodyTextBlockStyle}"/>
             <!-- Right Motor-->
             <Viewbox Grid.Row="0" Grid.Column="1"
-                     StretchDirection="Both" Stretch="Uniform" Width="250">
+                     StretchDirection="Both" Stretch="Uniform" Width="225">
                 <uc:SpeedGauge Speed="{Binding RobotModel.RightMotorSpeed}" Margin="5"/>
             </Viewbox>
             <TextBlock Grid.Row="1" Grid.Column="1"
                        Text="Right Motor Speed"
                        TextAlignment="Center"
+                       HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Style="{StaticResource BodyTextBlockStyle}"/>
-
         </Grid>
-        <!-- Battery status -->
-        <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
-              VerticalAlignment="Center">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <!-- Header -->
-            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+        <StackPanel Grid.Row="0" Grid.Column="1"
+                    Grid.RowSpan="2"
+                    Orientation="Vertical">
+            <!-- Battery status -->
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Header -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                        Text="Battery status"
                        Margin="5"
-                       Style="{StaticResource BodyTextBlockStyle}"/>
-            <!-- Battery Voltage -->
-            <TextBlock Grid.Row="1" Grid.Column="0" 
+                       Style="{StaticResource BaseTextBlockStyle}"/>
+                <!-- Battery Voltage -->
+                <TextBlock Grid.Row="1" Grid.Column="0" 
                        Text="Voltage (V)"
                        Margin="5"
                        Style="{StaticResource BodyTextBlockStyle}"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" 
+                <TextBlock Grid.Row="1" Grid.Column="1" 
                        Text="{Binding RobotModel.BatteryLevelAsFloat}"
                        Style="{StaticResource BodyTextBlockStyle}"
                        Margin="5"/>
-            <!-- Battery Amperage -->
-            <TextBlock Grid.Row="2" Grid.Column="0" 
+                <!-- Battery Amperage -->
+                <TextBlock Grid.Row="2" Grid.Column="0" 
                        Text="Amperage (mA)"
                        Margin="5"
                        Style="{StaticResource BodyTextBlockStyle}"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" 
-                       Text="{Binding RobotModel.BatteryAmperage}"
+                <TextBlock Grid.Row="2" Grid.Column="1" 
+                       Text="{Binding RobotModel.BatteryAmperageAsFloat}"
                        Style="{StaticResource BodyTextBlockStyle}"
                        Margin="5"/>
-        </Grid>
+            </Grid>
+            <!-- Heading -->
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <!-- Readings from sensors -->
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="Heading readings"
+                           Style="{StaticResource BaseTextBlockStyle}"
+                           Margin="5"/>
+                <!-- Raw value -->
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                       Text="Raw heading value"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <TextBlock Grid.Row="1" Grid.Column="1"
+                       Text="{Binding RobotModel.HeadMotorPosition}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <!-- Zero -->
+                <TextBlock Grid.Row="2" Grid.Column="0"
+                       Text="Zero value"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <TextBlock Grid.Row="2" Grid.Column="1"
+                       Text="{Binding RobotModel.HeadMotorPosition_Zero}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <!-- Calibrated heading -->
+                <TextBlock Grid.Row="3" Grid.Column="0"
+                       Text="Calibrated heading"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <TextBlock Grid.Row="3" Grid.Column="1"
+                       Text="{Binding RobotModel.HeadMotorPosition_Calibrated}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+            </Grid>
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="Infrared sensor readings"
+                           Style="{StaticResource BaseTextBlockStyle}"
+                           Margin="5"/>
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           Text="Proximity"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Margin="5"/>
+                <TextBlock Grid.Row="1" Grid.Column="1"
+                           Text="{Binding RobotModel.SingleIrReading}"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Margin="5"/>
+            </Grid>
+        </StackPanel>
+
+
     </Grid>
 </UserControl>

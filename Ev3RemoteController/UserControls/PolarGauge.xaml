@@ -97,6 +97,8 @@
                                              CenterX="2.0505209" CenterY="0.76952255"/>
                         </Rectangle.RenderTransform>
                     </Rectangle>
+                    
+                    
                 </Canvas>
                 <Canvas x:Name="layer2">
                     <Canvas.RenderTransform>

@@ -41,6 +41,38 @@ namespace Smallrobots.Ev3RemoteController.Models
                 RaisePropertyChanged();
             }
         }
+
+        [JsonIgnore]
+        int singleIrReading = 0;
+        /// <summary>
+        /// Gets or sets a single reading from the IR Sensor
+        /// </summary>
+        [JsonProperty("single_ir_reading")]
+        public int SingleIrReading
+        {
+            get => singleIrReading;
+            set
+            {
+                singleIrReading = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [JsonIgnore]
+        int headMotorPosition = 0;
+        /// <summary>
+        /// Gets or sets the Head Motor Position
+        /// </summary>
+        [JsonProperty("head_motor_position")]
+        public int HeadMotorPosition
+        {
+            get => headMotorPosition;
+            set
+            {
+                headMotorPosition = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         #region Command Properties

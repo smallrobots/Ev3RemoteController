@@ -110,7 +110,7 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
                     RaisePropertyChanged();
 
                     // Update the robot model
-                    RobotModel.TurnHeadCommand = (int)(rightThumbStickX * 500);
+                    RobotModel.TurnHeadCommand = (int)(rightThumbStickX * 1000);
                 }
             }
         }

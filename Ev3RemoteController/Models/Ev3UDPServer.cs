@@ -206,6 +206,9 @@ namespace Smallrobots.Ev3RemoteController.Models
                 writer.WriteString(serializedMessage);
                 await writer.StoreAsync();
                 // LogString = "\nMessage sent";
+
+                // Release the output stream
+                writer.DetachStream();
             }
         }
 
@@ -237,6 +240,9 @@ namespace Smallrobots.Ev3RemoteController.Models
                     LogString = "\nExcpetion in Ev3UDPServer.sendCommandMessage() " + ex.Message;
                     udpSender = null;
                 }
+
+                // Release the output stream
+                writer.DetachStream();
                 // LogString = "\nMessage sent";
             }
         }
@@ -265,6 +271,9 @@ namespace Smallrobots.Ev3RemoteController.Models
                 writer.WriteString(serializedMessage);
                 await writer.StoreAsync();
                 LogString = "\nMessage sent";
+
+                // Release the output stream
+                writer.DetachStream();
             }
 
             udpSender.Dispose();

@@ -84,6 +84,58 @@ namespace Smallrobots.Ev3RemoteController.Models
                 RaisePropertyChanged();
             }
         }
+
+        int singleIrReading = 0;
+        /// <summary>
+        /// Gets or sets a single reading from the IR Sensor
+        /// </summary>
+        public int SingleIrReading
+        {
+            get => singleIrReading;
+            set
+            {
+                singleIrReading = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        int headMotorPosition_Zero = 0;
+        /// <summary>
+        /// Gets or sets the zero for the head motor
+        /// </summary>
+        public int HeadMotorPosition_Zero
+        {
+            get => headMotorPosition_Zero;
+            set
+            {
+                headMotorPosition_Zero = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("HeadMotorPosition_Calibrated");
+            }
+        }
+
+        /// <summary>
+        /// Gets the head motor position calibrated
+        /// </summary>
+        public int HeadMotorPosition_Calibrated
+        {
+            get =>(int) ((HeadMotorPosition - HeadMotorPosition_Zero) / 145.0 * 90.0);
+        }
+
+        int headMotorPosition = 0;
+        /// <summary>
+        /// Gets or sets the Head Motor Position
+        /// </summary>
+        public int HeadMotorPosition
+        {
+            get => headMotorPosition;
+            set
+            {
+                headMotorPosition = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("HeadMotorPosition_Calibrated");
+            }
+        }
         #endregion
 
         #region Public methods
@@ -109,6 +161,8 @@ namespace Smallrobots.Ev3RemoteController.Models
             Ev3TrackedExplor3rMessage theMessage = JsonConvert.DeserializeObject<Ev3TrackedExplor3rMessage>(messageIn);
             DispatcherHelper.CheckBeginInvokeOnUI(() => RightMotorSpeed = theMessage.RightMotorSpeed);
             DispatcherHelper.CheckBeginInvokeOnUI(() => LeftMotorSpeed = theMessage.LeftMotorSpeed);
+            DispatcherHelper.CheckBeginInvokeOnUI(() => SingleIrReading = theMessage.SingleIrReading);
+            DispatcherHelper.CheckBeginInvokeOnUI(() => HeadMotorPosition = theMessage.HeadMotorPosition);
         }
         #endregion
     }
