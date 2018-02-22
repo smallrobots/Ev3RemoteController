@@ -41,7 +41,8 @@
             <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                      StretchDirection="Both" Stretch="Uniform" Margin="0">
                 <uc:PolarGauge Width="490" Height="323"
-                               NeedleAngle="{Binding RobotModel.HeadMotorPosition_Calibrated}"/>
+                               NeedleAngle="{Binding RobotModel.HeadMotorPosition_Calibrated}"
+                               IRContinuousScan="{Binding RobotModel.IRContinuousScan}"/>
             </Viewbox>
         </Grid>
         <!-- Tachometers -->
@@ -81,7 +82,8 @@
                     Grid.RowSpan="2"
                     Orientation="Vertical">
             <!-- Battery status -->
-            <Grid VerticalAlignment="Center">
+            <Grid VerticalAlignment="Center"
+                  Margin="0,10,0,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -116,7 +118,8 @@
                        Margin="5"/>
             </Grid>
             <!-- Heading -->
-            <Grid VerticalAlignment="Center">
+            <Grid VerticalAlignment="Center"
+                   Margin="0,10,0,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -161,8 +164,11 @@
                        Style="{StaticResource BodyTextBlockStyle}"
                        Margin="5"/>
             </Grid>
-            <Grid VerticalAlignment="Center">
+            <!-- Infrared sensor readings -->
+            <Grid VerticalAlignment="Center"
+                  Margin="0,10,0,10">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -175,6 +181,7 @@
                            Text="Infrared sensor readings"
                            Style="{StaticResource BaseTextBlockStyle}"
                            Margin="5"/>
+                <!-- Proximity -->
                 <TextBlock Grid.Row="1" Grid.Column="0"
                            Text="Proximity"
                            Style="{StaticResource BodyTextBlockStyle}"
@@ -183,6 +190,18 @@
                            Text="{Binding RobotModel.SingleIrReading}"
                            Style="{StaticResource BodyTextBlockStyle}"
                            Margin="5"/>
+                <!-- Continuous scan -->
+                <TextBlock Grid.Row="2" Grid.Column="0"
+                           Text="Continuous scan"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Margin="5"
+                           VerticalAlignment="Center"/>
+                <ToggleSwitch Grid.Row="2" Grid.Column="1"
+                              Margin="5"
+                              VerticalAlignment="Center"
+                              OnContent="Activated"
+                              OffContent="Inactive"
+                              IsOn="{Binding RobotModel.IsContinuousScanActivated, Mode=TwoWay}"/>
             </Grid>
         </StackPanel>
 

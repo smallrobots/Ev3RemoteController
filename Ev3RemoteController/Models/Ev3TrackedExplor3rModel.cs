@@ -9,6 +9,7 @@ using GalaSoft.MvvmLight.Threading;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace Smallrobots.Ev3RemoteController.Models
@@ -35,6 +36,20 @@ namespace Smallrobots.Ev3RemoteController.Models
                     throw new ArgumentOutOfRangeException("TurnHeadCommand", value,
                         "TurnHeadCommand value must be within the range [-1000,1000]");
                 }
+            }
+        }
+
+        bool isContinuousScanActivated = false;
+        /// <summary>
+        /// Gets or sets the activation of the continuous scan
+        /// </summary>
+        public bool IsContinuousScanActivated
+        {
+            get => isContinuousScanActivated;
+            set
+            {
+                isContinuousScanActivated = value;
+                RaisePropertyChanged();
             }
         }
         #endregion
@@ -136,6 +151,33 @@ namespace Smallrobots.Ev3RemoteController.Models
                 RaisePropertyChanged("HeadMotorPosition_Calibrated");
             }
         }
+
+        ObservableCollection<int> iRContinuousScan;
+        /// <summary>
+        /// Gets or sets the IR Continuos Scan List
+        /// </summary>
+        public ObservableCollection<int> IRContinuousScan
+        {
+            get => iRContinuousScan;
+            set
+            {
+                iRContinuousScan = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Constructor
+        public Ev3TrackedExplor3rModel() : base()
+        {
+            //float step = 100f / 30f;
+            //int[] arrayInit = new int[30];
+            //for (int i = 0; i < 30; i++)
+            //{
+            //    arrayInit[i] = (int) (step * i);
+            //}
+            IRContinuousScan = new ObservableCollection<int>();
+        }
         #endregion
 
         #region Public methods
@@ -147,6 +189,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         {
             Ev3TrackedExplor3rMessage message = new Ev3TrackedExplor3rMessage(base.CreateOutboundMessage());
             message.TurnHeadCommand = TurnHeadCommand;
+            message.IsContinuousScanActivated = IsContinuousScanActivated;
             return message;
         }
 
@@ -163,6 +206,8 @@ namespace Smallrobots.Ev3RemoteController.Models
             DispatcherHelper.CheckBeginInvokeOnUI(() => LeftMotorSpeed = theMessage.LeftMotorSpeed);
             DispatcherHelper.CheckBeginInvokeOnUI(() => SingleIrReading = theMessage.SingleIrReading);
             DispatcherHelper.CheckBeginInvokeOnUI(() => HeadMotorPosition = theMessage.HeadMotorPosition);
+            DispatcherHelper.CheckBeginInvokeOnUI(() => 
+                IRContinuousScan = new ObservableCollection<int>(theMessage.IRContinuousScan));
         }
         #endregion
     }

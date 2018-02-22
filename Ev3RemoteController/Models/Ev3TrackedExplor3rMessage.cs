@@ -73,6 +73,22 @@ namespace Smallrobots.Ev3RemoteController.Models
                 RaisePropertyChanged();
             }
         }
+
+        [JsonIgnore]
+        int[] irContinuousScan = new int[30];
+        /// <summary>
+        /// Gets or sets the IR Continuous Scan List
+        /// </summary>
+        [JsonProperty("ircs_scan_list")]
+        public int[] IRContinuousScan
+        {
+            get => irContinuousScan;
+            set
+            {
+                irContinuousScan = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         #region Command Properties
@@ -88,6 +104,22 @@ namespace Smallrobots.Ev3RemoteController.Models
             set
             {
                 turnHeadCommand = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [JsonIgnore]
+        bool isContinuousScanActivated = false;
+        [JsonProperty("is_continuous_scan_activated")]
+        /// <summary>
+        /// Gets or sets the activation of the continuous scan
+        /// </summary>
+        public bool IsContinuousScanActivated
+        {
+            get => isContinuousScanActivated;
+            set
+            {
+                isContinuousScanActivated = value;
                 RaisePropertyChanged();
             }
         }
