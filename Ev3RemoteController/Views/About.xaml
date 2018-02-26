@@ -7,7 +7,25 @@
     mc:Ignorable="d" 
     RequiresPointer="Never" KeyDown="Page_KeyDown">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="..\Assets\Ev3Tank-v1-12.png" Opacity="0.05"/>
+        </Grid.Background>
+        <TextBlock Style="{StaticResource BodyTextBlockStyle}" FontFamily="Segoe UI">
+            <Run FontStyle="Normal" FontSize="24">
+                Ev3 Remote Controller
+            </Run>
+            <LineBreak/>
+            
+            <Run FontStyle="Normal" FontSize="12" FontWeight="Normal">
+                Version 1.0.0, Copyright 2018 
+            </Run>
+            <Hyperlink FontStyle="Normal" FontSize="12" FontWeight="Bold"
+                       NavigateUri="https://www.smallrobots.it">
+                <Run Text="Smallrobots.it"/>
+            </Hyperlink>           
+            <LineBreak/>
+            
+        </TextBlock>
     </Grid>
 </UserControl>

@@ -12,7 +12,10 @@
     
     RequiresPointer="Never" KeyDown="Page_KeyDown">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="..\Assets\Ev3Tank-v1-12.png" Opacity="0.05"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>

@@ -13,9 +13,6 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>
-            <!--<PivotItem Header="Robot Control">
-                <views:RobotControl/>
-            </PivotItem>-->
             <PivotItem Header="Telemetry">
                 <views:RobotTelemetry/>
             </PivotItem>
