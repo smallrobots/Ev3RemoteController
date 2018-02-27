@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Smallrobots.Ev3RemoteController.Views;
+using Windows.UI.Xaml.Controls;
 
 namespace Ev3RemoteController
 {
@@ -7,6 +8,12 @@ namespace Ev3RemoteController
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        #region Fields
+        About aboutView = null;
+        RobotTelemetry robotTelemetryView = null;
+        Settings settingsView = null;
+        #endregion
+
         #region Constructors
         /// <summary>
         /// Default constructor
@@ -14,6 +21,12 @@ namespace Ev3RemoteController
         public MainPage()
         {
             InitializeComponent();
+            aboutView = new About();
+            robotTelemetryView = new RobotTelemetry();
+            settingsView = new Settings();
+
+            // Initial View
+            mainViewArea.Content = robotTelemetryView;
         }
         #endregion
 
@@ -42,5 +55,15 @@ namespace Ev3RemoteController
             }
         }
         #endregion
+
+        private void View_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (sender.Equals(settings_Button))
+                mainViewArea.Content = settingsView;
+            if (sender.Equals(drive_Button))
+                mainViewArea.Content = robotTelemetryView;
+            if (sender.Equals(about_button))
+                mainViewArea.Content = aboutView;
+        }
     }
 }

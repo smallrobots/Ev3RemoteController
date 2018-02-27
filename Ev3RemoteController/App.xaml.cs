@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -71,6 +72,10 @@ namespace Ev3RemoteController
                 // Assicurarsi che la finestra corrente sia attiva
                 Window.Current.Activate();
             }
+
+            // Hide default title bar.
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
         }
 
         /// <summary>

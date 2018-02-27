@@ -11,7 +11,7 @@
     
     RequiresPointer="Never" KeyDown="Page_KeyDown">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <!--<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>
             <PivotItem Header="Telemetry">
                 <views:RobotTelemetry/>
@@ -23,5 +23,40 @@
                 <views:About/>
             </PivotItem>
         </Pivot>
+    </Grid>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal"
+                    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+            <TextBlock Text="Ev3 Remote Controller"
+                       VerticalAlignment="Center"
+                       Style="{ThemeResource SubheaderTextBlockStyle}"
+                       Margin="5"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+            <Button x:Name="drive_Button"
+                    Content="Drive"
+                    Style="{ThemeResource CommanButtonStyle}"
+                    Margin="5" 
+                    Click="View_Click"/>
+            <Button x:Name="settings_Button"
+                    Content="Settings"
+                    Style="{ThemeResource CommanButtonStyle}"
+                    Margin="5"
+                    Click="View_Click"/>
+            <Button x:Name="about_button" 
+                    Content="About"
+                    Style="{ThemeResource CommanButtonStyle}"
+                    FocusVisualMargin="10"
+                    Margin="5"
+                    Click="View_Click"/>
+        </StackPanel>
+        <ContentControl Grid.Row="2"
+                        x:Name="mainViewArea"/>
     </Grid>
 </Page>
