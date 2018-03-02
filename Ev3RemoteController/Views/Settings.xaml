@@ -10,7 +10,8 @@
     
     DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
     
-    RequiresPointer="Never" KeyDown="Page_KeyDown">
+    RequiresPointer="Never" KeyDown="Page_KeyDown"
+    Background="#19D3D3D3">
 
     <Grid>
         <Grid.Background>
@@ -43,42 +44,42 @@
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                        TextWrapping="Wrap" 
                        Text="Robot settings" 
-                       Style="{StaticResource TitleTextBlockStyle}" 
+                       Style="{StaticResource BaseTextBlockStyle}" 
                        d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" Margin="0,5" 
                        />
                 <TextBlock Grid.Row="1" Grid.Column="0"
                        TextWrapping="Wrap" 
                        Text="IP Address" 
-                       Style="{StaticResource Caption_Style}"  
+                       Style="{StaticResource BodyTextBlockStyle}"  
                        d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"
                        VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="2" Grid.Column="0" 
                            VerticalAlignment="Center"
                            TextWrapping="Wrap" 
                            Text="IP Port"                            
-                           Style="{StaticResource Caption_Style}"  
+                           Style="{StaticResource BodyTextBlockStyle}"  
                            d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"/>
                 <!-- IP Address -->
                 <TextBox x:Name="textBox_RobotIpAddress" Grid.Row="1" Grid.Column="1" 
                          TextWrapping="Wrap" 
                          Text="{Binding RobotIpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         Style="{StaticResource UserSetting_TextBoxStyle}" 
+                         Style="{ThemeResource UserSetting_TextBoxStyle}" 
                          d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" 
                          BorderBrush="{Binding RobotIpAddress_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
                          IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
                          Width="170"
-                         />
+                         Margin="5"/>
                 <!-- IP Port -->
                 <TextBox x:Name="textBox_RobotIpPort" Grid.Row="2" Grid.Column="1" 
                          VerticalAlignment="Center"
                          TextWrapping="Wrap" 
                          Text="{Binding RobotIPPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                         Style="{StaticResource UserSetting_TextBoxStyle}" 
+                         Style="{ThemeResource UserSetting_TextBoxStyle}" 
                          d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" 
                          BorderBrush="{Binding RobotIpPort_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
                          IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
                          Width="170"
-                         />
+                         Margin="5"/>
             </Grid>
             <!-- Ev3 Remote unit -->
             <Grid x:Name="___Grid__Controller_IP_Settings" Margin="0,20,0,0">
@@ -95,20 +96,21 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                        TextWrapping="Wrap" 
-                       Style="{StaticResource TitleTextBlockStyle}" 
+                       Style="{StaticResource BaseTextBlockStyle}" 
                        d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition" Margin="0,5" 
                        Text="Controller settings"/>
                 <TextBlock Grid.Row="1" Grid.Column="0"
-                       TextWrapping="Wrap" 
-                       Text="IP Address" 
-                       Style="{StaticResource Caption_Style}"  
-                       d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"
-                       VerticalAlignment="Center"/>
+                           TextWrapping="Wrap" 
+                           Text="IP Address" 
+                           Style="{StaticResource BodyTextBlockStyle}"  
+                           d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"
+                           VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="2" Grid.Column="0" 
-                       TextWrapping="Wrap" 
-                       Text="IP Port" 
-                       Style="{StaticResource Caption_Style}"  
-                       d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"/>
+                           TextWrapping="Wrap" 
+                           Text="IP Port" 
+                           Style="{StaticResource BodyTextBlockStyle}" 
+                           VerticalAlignment="Center"
+                           d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"/>
                 <!-- IP Address -->
                 <TextBox x:Name="textBox_ControllerIpAddress" Grid.Row="1" Grid.Column="1" 
                          TextWrapping="Wrap" 
@@ -118,7 +120,7 @@
                          BorderBrush="{Binding ControllerIpAddress_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
                          IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
                          Width="170"
-                         />
+                         Margin="5"/>
                 <!-- IP Port -->
                 <TextBox x:Name="textBox_ControllerIpPort" Grid.Row="2" Grid.Column="1" 
                          TextWrapping="Wrap" 
@@ -128,13 +130,13 @@
                          BorderBrush="{Binding ControllerIpPort_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
                          IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
                          Width="170"
-                         />
+                         Margin="5"/>
                 <!-- Joystick -->
                 <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                            TextWrapping="Wrap" 
                            Text="{Binding GameControllerConnectedNotification}" 
                            HorizontalAlignment="Center"
-                           Style="{StaticResource Caption_Style}"  
+                           Style="{StaticResource BaseTextBlockStyle}"  
                            d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Margin="0,20,5,5"/>
                 <!-- Joystick position -->
                 <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
@@ -149,31 +151,38 @@
                     </Grid.ColumnDefinitions>
                     <!-- Left X Position -->
                     <TextBlock Grid.Row="0" Grid.Column="0"
-                               Style="{StaticResource Caption_Style}"
-                               Text="Left X Position"/>
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               Text="Left X Position"
+                               VerticalAlignment="Center"
+                               Margin="0,5"/>
                     <TextBlock Grid.Row="0" Grid.Column="1"
-                               Style="{StaticResource Caption_Style}"
+                               Style="{StaticResource BodyTextBlockStyle}"
                                Text="{Binding LeftThumbStickX}"
                                TextAlignment="Right"/>
                     <!-- Left Y Position -->
                     <TextBlock Grid.Row="1" Grid.Column="0"
-                               Style="{StaticResource Caption_Style}"
-                               Text="Left Y Position"/>
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               Text="Left Y Position"
+                               VerticalAlignment="Center"
+                               Margin="0,5"/>
                     <TextBlock Grid.Row="1" Grid.Column="1"
-                               Style="{StaticResource Caption_Style}"
+                               Style="{StaticResource BodyTextBlockStyle}"
                                Text="{Binding LeftThumbStickY}"
                                TextAlignment="Right"/>
                     <!-- RIght X Position -->
                     <TextBlock Grid.Row="2" Grid.Column="0"
-                               Style="{StaticResource Caption_Style}"
-                               Text="Right X Position"/>
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               Text="Right X Position"
+                               VerticalAlignment="Center"
+                               Margin="0,5"/>
                     <TextBlock Grid.Row="2" Grid.Column="1"
-                               Style="{StaticResource Caption_Style}"
+                               Style="{StaticResource BodyTextBlockStyle}"
                                Text="{Binding RightThumbStickX}"
                                TextAlignment="Right"/>
                 </Grid>
             </Grid>
         </StackPanel>
+        <!-- Pannello destrp-->
         <!-- Connection diagnostics -->
         <Grid Grid.Row="0" Grid.Column="1" 
               x:Name="___Grid__Connection_Diagnostic" 
@@ -198,7 +207,7 @@
                         Orientation="Horizontal" >
                 <TextBlock TextWrapping="Wrap" 
                            Text="Connection status" 
-                           Style="{StaticResource TitleTextBlockStyle}"
+                           Style="{StaticResource BaseTextBlockStyle}"
                            Margin="0,5"
                            />
             </StackPanel>
@@ -209,7 +218,7 @@
                         Orientation="Horizontal" >
                 <TextBlock TextWrapping="Wrap" 
                            Text="Check reachability with a " 
-                           Style="{StaticResource Caption_Style}"
+                           Style="{StaticResource BodyTextBlockStyle}"
                            VerticalAlignment="Center"/>
                 <Button x:Name="button2" Content="Ping"
                         VerticalAlignment="Center"

@@ -31,27 +31,31 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal"
-                    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                    Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
+            <Image Source="..\Assets\Smallrobots_Logo_TransparentBackground.png"
+                   Width="33"
+                   Margin="5"/>
             <TextBlock Text="Ev3 Remote Controller"
                        VerticalAlignment="Center"
                        Style="{ThemeResource SubheaderTextBlockStyle}"
-                       Margin="5"/>
+                       Margin="5,5,5,5"
+                       FontSize="21.5"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal"
-                    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                    Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
             <Button x:Name="drive_Button"
                     Content="Drive"
-                    Style="{ThemeResource CommanButtonStyle}"
+                    Style="{ThemeResource ButtonRevealStyle}"
                     Margin="5" 
                     Click="View_Click"/>
             <Button x:Name="settings_Button"
                     Content="Settings"
-                    Style="{ThemeResource CommanButtonStyle}"
+                    Style="{ThemeResource ButtonRevealStyle}"
                     Margin="5"
                     Click="View_Click"/>
             <Button x:Name="about_button" 
                     Content="About"
-                    Style="{ThemeResource CommanButtonStyle}"
+                    Style="{ThemeResource ButtonRevealStyle}"
                     FocusVisualMargin="10"
                     Margin="5"
                     Click="View_Click"/>

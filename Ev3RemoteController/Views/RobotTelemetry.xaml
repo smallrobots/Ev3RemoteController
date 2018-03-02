@@ -9,12 +9,13 @@
     mc:Ignorable="d"
 
     
-    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}" >
+    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}" 
+    Background="#19D3D3D3">
 
-    <Grid Margin="0,0,0,0">
-        <Grid.Background>
+    <Grid Margin="0,0,0,0" >
+        <!--<Grid.Background>
             <ImageBrush Stretch="Uniform" ImageSource="..\Assets\Ev3Tank-v1-12.png" Opacity="0.05"/>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

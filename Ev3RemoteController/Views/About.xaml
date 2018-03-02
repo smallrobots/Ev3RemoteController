@@ -5,7 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
-    RequiresPointer="Never" KeyDown="Page_KeyDown">
+    RequiresPointer="Never" KeyDown="Page_KeyDown"
+    Background="#19D3D3D3">
 
     <Grid>
         <Grid.Background>
