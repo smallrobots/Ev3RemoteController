@@ -123,7 +123,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         public async void Start()
         {
             // Start the timer
-            senderTimer = ThreadPoolTimer.CreatePeriodicTimer(sender, new TimeSpan(0, 0, 0, 0, samplingPeriod));
+            senderTimer = ThreadPoolTimer.CreatePeriodicTimer(Sender, new TimeSpan(0, 0, 0, 0, samplingPeriod));
 
             // Bind the inbound socket
             udpListener = new DatagramSocket();
@@ -156,7 +156,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// Sender Task called periodically
         /// </summary>
         /// <param name="timer"></param>
-        async void sender(ThreadPoolTimer timer)
+        async void Sender(ThreadPoolTimer timer)
         {
             // Check if a connection has been previously already established
             if (udpSender == null)
@@ -172,12 +172,12 @@ namespace Smallrobots.Ev3RemoteController.Models
                 LogString = "\n\nAttempting a connection to the remote robot host";
                 await udpSender.ConnectAsync(remoteHostName, remoteHostPort.ToString());
 
-                sendSubscribeMessage();
+                SendSubscribeMessage();
             }
             else
             {
                 // Send UDP message on the already open DatagramSocket
-                sendCommandMessage();
+                SendCommandMessage();
             }
 
         }
@@ -185,7 +185,7 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// <summary>
         /// Send the first subscribe message
         /// </summary>
-        async void sendSubscribeMessage()
+        async void SendSubscribeMessage()
         {
             if (udpSender != null)
             {
@@ -212,7 +212,7 @@ namespace Smallrobots.Ev3RemoteController.Models
             }
         }
 
-        async void sendCommandMessage()
+        async void SendCommandMessage()
         {
             if (udpSender != null)
             {

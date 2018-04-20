@@ -61,6 +61,8 @@
                     Click="View_Click"/>
         </StackPanel>
         <ContentControl Grid.Row="2"
-                        x:Name="mainViewArea"/>
+                        x:Name="mainViewArea"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"/>
     </Grid>
 </Page>

@@ -11,7 +11,7 @@
     DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
     
     RequiresPointer="Never" KeyDown="Page_KeyDown"
-    Background="#19D3D3D3">
+    Background="#19D3D3D3" Width="665">
 
     <Grid>
         <Grid.Background>
@@ -68,7 +68,8 @@
                          BorderBrush="{Binding RobotIpAddress_IsValid, Converter={StaticResource BooleanToValidityBrushColorConverter}}"
                          IsEnabled="{Binding ConnectionStatus, Converter={StaticResource ConnectionStatusToBooleanConverter}}"
                          Width="170"
-                         Margin="5"/>
+                         Margin="5"
+                         />
                 <!-- IP Port -->
                 <TextBox x:Name="textBox_RobotIpPort" Grid.Row="2" Grid.Column="1" 
                          VerticalAlignment="Center"
@@ -182,7 +183,7 @@
                 </Grid>
             </Grid>
         </StackPanel>
-        <!-- Pannello destrp-->
+        <!-- Pannello destop-->
         <!-- Connection diagnostics -->
         <Grid Grid.Row="0" Grid.Column="1" 
               x:Name="___Grid__Connection_Diagnostic" 
@@ -251,14 +252,15 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0"
                            Text="Connection log" 
-                           Style="{StaticResource TitleTextBlockStyle}" 
+                           Style="{StaticResource BaseTextBlockStyle}" 
                            Margin="0,5" HorizontalAlignment="Left"/>
                 <TextBox x:Name ="LogView" Grid.Row="1" Grid.Column="0" 
                          TextWrapping="Wrap"
                          Text="{Binding ConnectionLog}"
                          TextChanged="TextBox_TextChanged"
                          IsReadOnly="True" 
-                         ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         />
             </Grid>
         </Grid>
     </Grid>
