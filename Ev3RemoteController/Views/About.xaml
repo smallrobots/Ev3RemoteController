@@ -6,7 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
     RequiresPointer="Never" KeyDown="Page_KeyDown"
-    Background="#19D3D3D3">
+    Background="#19D3D3D3"
+    Margin="5">
 
     <Grid>
         <Grid.Background>

@@ -12,6 +12,7 @@ namespace Ev3RemoteController
         About aboutView = null;
         RobotTelemetry robotTelemetryView = null;
         Settings settingsView = null;
+        RobotSettings robotSettingsView = null;
         #endregion
 
         #region Constructors
@@ -24,6 +25,7 @@ namespace Ev3RemoteController
             aboutView = new About();
             robotTelemetryView = new RobotTelemetry();
             settingsView = new Settings();
+            robotSettingsView = new RobotSettings();
 
             // Initial View
             mainViewArea.Content = robotTelemetryView;
@@ -60,6 +62,8 @@ namespace Ev3RemoteController
         {
             if (sender.Equals(settings_Button))
                 mainViewArea.Content = settingsView;
+            if (sender.Equals(robot_settings_Button))
+                mainViewArea.Content = robotSettingsView;
             if (sender.Equals(drive_Button))
                 mainViewArea.Content = robotTelemetryView;
             if (sender.Equals(about_button))

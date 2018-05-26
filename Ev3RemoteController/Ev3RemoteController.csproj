@@ -122,6 +122,18 @@
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RobotSettings.xaml.cs">
+      <DependentUpon>RobotSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RobotSettings_Ev3TrackedExplor3r.xaml.cs">
+      <DependentUpon>RobotSettings_Ev3TrackedExplor3r.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RobotSettings_Ev3TrackedExplor3r_MarkII.xaml.cs">
+      <DependentUpon>RobotSettings_Ev3TrackedExplor3r_MarkII.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RobotSettings_IRScanTester.xaml.cs">
+      <DependentUpon>RobotSettings_IRScanTester.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RobotTelemetry.xaml.cs">
       <DependentUpon>RobotTelemetry.xaml</DependentUpon>
     </Compile>
@@ -180,6 +192,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RobotSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RobotSettings_Ev3TrackedExplor3r.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RobotSettings_Ev3TrackedExplor3r_MarkII.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RobotSettings_IRScanTester.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

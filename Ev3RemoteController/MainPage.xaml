@@ -10,20 +10,7 @@
     DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
     
     RequiresPointer="Never" KeyDown="Page_KeyDown">
-
-    <!--<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot>
-            <PivotItem Header="Telemetry">
-                <views:RobotTelemetry/>
-            </PivotItem>
-            <PivotItem Header="Settings">
-                <views:Settings/>
-            </PivotItem>
-            <PivotItem Header="About">
-                <views:About/>
-            </PivotItem>
-        </Pivot>
-    </Grid>-->
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -48,8 +35,13 @@
                     Style="{ThemeResource ButtonRevealStyle}"
                     Margin="5" 
                     Click="View_Click"/>
+            <Button x:Name="robot_settings_Button"
+                    Content="Rover"
+                    Style="{ThemeResource ButtonRevealStyle}"
+                    Margin="5"
+                    Click="View_Click"/>
             <Button x:Name="settings_Button"
-                    Content="Settings"
+                    Content="Communication"
                     Style="{ThemeResource ButtonRevealStyle}"
                     Margin="5"
                     Click="View_Click"/>
