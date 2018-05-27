@@ -237,6 +237,5 @@ namespace Smallrobots.Ev3RemoteController.Models
             }
         }
         #endregion
-
     }
 }

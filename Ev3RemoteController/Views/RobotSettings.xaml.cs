@@ -27,31 +27,41 @@ namespace Smallrobots.Ev3RemoteController.Views
 
         public RobotSettings()
         {
-            InitializeComponent();         
+            InitializeComponent();
+
+            // Fields initialization
+            rsEvte = new RobotSettings_Ev3TrackedExplor3r();
+            rsEvte2 = new RobotSettings_Ev3TrackedExplor3r_MarkII();
+            irScan = new RobotSettings_IRScanTester();
+            cmbRoverType.SelectedIndex = 0;
         }
 
         private void selectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (mainViewArea != null)
             {
-                if (((ComboBoxItem)cmbRoverType.SelectedItem).Content.Equals("Tracked Explor3r"))
+                if (cmbRoverType.SelectedIndex == 0)
                 {
+                    // Ev3 Tracked Explor3r
                     if (rsEvte == null)
                         rsEvte = new RobotSettings_Ev3TrackedExplor3r();
                     mainViewArea.Content = rsEvte;
                 }
-                if (((ComboBoxItem)cmbRoverType.SelectedItem).Content.Equals("IRScan tester"))
+                if (cmbRoverType.SelectedIndex == 1)
                 {
-                    if (rsEvte2 == null)
-                        rsEvte2 = new RobotSettings_Ev3TrackedExplor3r_MarkII();
-                    mainViewArea.Content = rsEvte2;
-                }
-                if (((ComboBoxItem)cmbRoverType.SelectedItem).Content.Equals("Tracked Explor3r Mark II"))
-                {
+                    // IR Scan Tester
                     if (irScan == null)
                         irScan = new RobotSettings_IRScanTester();
                     mainViewArea.Content = irScan;
                 }
+                if (cmbRoverType.SelectedIndex == 2)
+                {
+                    // Ev3 Tracked Explor3r Mark II
+                    if (rsEvte2 == null)
+                        rsEvte2 = new RobotSettings_Ev3TrackedExplor3r_MarkII();
+                    mainViewArea.Content = rsEvte2;
+                }
+
             }
             return;
         }

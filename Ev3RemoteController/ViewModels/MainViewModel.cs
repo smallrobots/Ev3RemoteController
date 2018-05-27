@@ -333,6 +333,28 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
         }
         #endregion
 
+        #region Properties about the Rover selected
+        /// <summary>
+        /// Gets or sets the index of the rover selected
+        /// So far:
+        /// 0 - Ev3 Tracked Explor3r
+        /// 1 - IR Scan Tester
+        /// 2 - Ev3 Tracked Explor3r Mark II
+        /// </summary>
+        public int RoverSelected
+        {
+            get => RobotModel.RoverSelected;
+            set
+            {
+                if (RobotModel.RoverSelected != value)
+                {
+                    RobotModel.RoverSelected = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Default constructor

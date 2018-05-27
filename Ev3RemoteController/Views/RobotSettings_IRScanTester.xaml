@@ -10,6 +10,17 @@
     d:DesignWidth="400">
 
     <Grid>
-        <TextBlock Text="3"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0"
+               Source="..\Resources\TE Mark 2_20180527_1b.png"
+               MaxWidth="300"
+               HorizontalAlignment="Left"/>
     </Grid>
 </UserControl>

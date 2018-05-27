@@ -52,6 +52,27 @@ namespace Smallrobots.Ev3RemoteController.Models
                 RaisePropertyChanged();
             }
         }
+
+        int roverSelected = 0;
+        /// <summary>
+        /// Gets or sets the index of the rover selected
+        /// So far:
+        /// 0 - Ev3 Tracked Explor3r
+        /// 1 - IR Scan Tester
+        /// 2 - Ev3 Tracked Explor3r Mark II
+        /// </summary>
+        public int RoverSelected
+        {
+            get => roverSelected;
+            set
+            {
+                if (roverSelected != value)
+                {
+                    roverSelected = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region Robot Telemetry
@@ -134,7 +155,20 @@ namespace Smallrobots.Ev3RemoteController.Models
         /// </summary>
         public int HeadMotorPosition_Calibrated
         {
-            get =>(int) ((HeadMotorPosition - HeadMotorPosition_Zero) / 145.0 * 90.0);
+            get
+            {
+                if (RoverSelected == 0)
+                {
+                    // Ev3 Tracked Explor3r
+                    return (int)((HeadMotorPosition - HeadMotorPosition_Zero) / 145.0 * 90.0);
+                }
+                else if (RoverSelected == 1)
+                {
+                    // IRScan Test
+                    return (int)((HeadMotorPosition - HeadMotorPosition_Zero) / 1200.0 * 90.0);
+                }
+                else return 0;
+            }
         }
 
         int headMotorPosition = 0;
@@ -190,6 +224,7 @@ namespace Smallrobots.Ev3RemoteController.Models
             Ev3TrackedExplor3rMessage message = new Ev3TrackedExplor3rMessage(base.CreateOutboundMessage());
             message.TurnHeadCommand = TurnHeadCommand;
             message.IsContinuousScanActivated = IsContinuousScanActivated;
+            message.RoverSelected = RoverSelected;
             return message;
         }
 

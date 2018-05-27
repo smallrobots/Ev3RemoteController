@@ -123,6 +123,29 @@ namespace Smallrobots.Ev3RemoteController.Models
                 RaisePropertyChanged();
             }
         }
+
+        [JsonIgnore]
+        int roverSelected = 0;
+        [JsonProperty("rover_selected")]
+        /// <summary>
+        /// Gets or sets the index of the rover selected
+        /// So far:
+        /// 0 - Ev3 Tracked Explor3r
+        /// 1 - IR Scan Tester
+        /// 2 - Ev3 Tracked Explor3r Mark II
+        /// </summary>
+        public int RoverSelected
+        {
+            get => roverSelected;
+            set
+            {
+                if (roverSelected != value)
+                {
+                    roverSelected = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region Constructor
