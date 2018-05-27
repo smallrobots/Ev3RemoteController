@@ -10,6 +10,15 @@
     d:DesignWidth="400">
 
     <Grid>
-        <TextBlock Text="1"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Grid.ColumnSpan="2"
+               Source="..\Resources\Ev3Tank-v1-17.png"/>
     </Grid>
 </UserControl>

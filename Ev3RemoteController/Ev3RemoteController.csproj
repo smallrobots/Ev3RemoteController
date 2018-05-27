@@ -161,6 +161,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Resources\Ev3Tank-v1-17.png" />
     <None Include="UserControls\Drawings\Gauge -100 100.svg" />
     <None Include="UserControls\Drawings\Gauge 0-100.svg" />
     <None Include="Views\VisualStateManager.txt" />

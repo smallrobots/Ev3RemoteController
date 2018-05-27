@@ -37,7 +37,7 @@
                       x:Name="cmbRoverType">
                 <ComboBoxItem IsSelected="True">Tracked Explor3r</ComboBoxItem>
                 <ComboBoxItem>IRScan tester</ComboBoxItem>
-                <ComboBoxItem>Tracked Explor3r Mark II</ComboBoxItem>
+                <ComboBoxItem IsEnabled="False">Tracked Explor3r Mark II</ComboBoxItem>
             </ComboBox>
         </StackPanel>
         

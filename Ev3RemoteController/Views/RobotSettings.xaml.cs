@@ -32,23 +32,26 @@ namespace Smallrobots.Ev3RemoteController.Views
 
         private void selectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (((ComboBoxItem)cmbRoverType.SelectedItem).Content.Equals("Tracked Explor3r"))
+            if (mainViewArea != null)
             {
-                if (rsEvte == null)
-                    rsEvte = new RobotSettings_Ev3TrackedExplor3r();
-                mainViewArea.Content = rsEvte;
-            }
-            if (((ComboBoxItem)cmbRoverType.SelectedItem).Content.Equals("IRScan tester"))
-            {
-                if (rsEvte2 == null)
-                    rsEvte2 = new RobotSettings_Ev3TrackedExplor3r_MarkII();
-                mainViewArea.Content = rsEvte2;
-            }
-            if (((ComboBoxItem)cmbRoverType.SelectedItem).Content.Equals("Tracked Explor3r Mark II"))
-            {
-                if (irScan == null)
-                    irScan = new RobotSettings_IRScanTester();
-                mainViewArea.Content = irScan;
+                if (((ComboBoxItem)cmbRoverType.SelectedItem).Content.Equals("Tracked Explor3r"))
+                {
+                    if (rsEvte == null)
+                        rsEvte = new RobotSettings_Ev3TrackedExplor3r();
+                    mainViewArea.Content = rsEvte;
+                }
+                if (((ComboBoxItem)cmbRoverType.SelectedItem).Content.Equals("IRScan tester"))
+                {
+                    if (rsEvte2 == null)
+                        rsEvte2 = new RobotSettings_Ev3TrackedExplor3r_MarkII();
+                    mainViewArea.Content = rsEvte2;
+                }
+                if (((ComboBoxItem)cmbRoverType.SelectedItem).Content.Equals("Tracked Explor3r Mark II"))
+                {
+                    if (irScan == null)
+                        irScan = new RobotSettings_IRScanTester();
+                    mainViewArea.Content = irScan;
+                }
             }
             return;
         }

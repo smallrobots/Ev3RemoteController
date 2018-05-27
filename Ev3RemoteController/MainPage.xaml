@@ -17,7 +17,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" 
+                    Orientation="Horizontal"
                     Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
             <Image Source="..\Assets\Smallrobots_Logo_TransparentBackground.png"
                    Width="33"
@@ -30,11 +35,6 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal"
                     Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
-            <Button x:Name="drive_Button"
-                    Content="Drive"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    Margin="5" 
-                    Click="View_Click"/>
             <Button x:Name="robot_settings_Button"
                     Content="Rover"
                     Style="{ThemeResource ButtonRevealStyle}"
@@ -45,14 +45,23 @@
                     Style="{ThemeResource ButtonRevealStyle}"
                     Margin="5"
                     Click="View_Click"/>
+            <Button x:Name="drive_Button"
+                    Content="Drive"
+                    Style="{ThemeResource ButtonRevealStyle}"
+                    Margin="5" 
+                    Click="View_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1"
+                    Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
             <Button x:Name="about_button" 
                     Content="About"
                     Style="{ThemeResource ButtonRevealStyle}"
                     FocusVisualMargin="10"
                     Margin="5"
-                    Click="View_Click"/>
+                    Click="View_Click"
+                    HorizontalAlignment="Right"/>
         </StackPanel>
-        <ContentControl Grid.Row="2"
+        <ContentControl Grid.Row="2" Grid.ColumnSpan="2"
                         x:Name="mainViewArea"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"/>
