@@ -89,6 +89,22 @@ namespace Smallrobots.Ev3RemoteController.Models
                 RaisePropertyChanged();
             }
         }
+
+        [JsonIgnore]
+        int gyro_reading = 0;
+        /// <summary>
+        /// Gets or sets the Gyro Reading giving the measured heading of the rover
+        /// </summary>
+        [JsonProperty("rover_measured_heading")]
+        public int GyroReading
+        {
+            get => gyro_reading;
+            set
+            {
+                gyro_reading = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         #region Command Properties

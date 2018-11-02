@@ -40,7 +40,7 @@
                       SelectedIndex="{Binding RoverSelected, Mode=TwoWay}">
                 <ComboBoxItem>Ev3 Tracked Explor3r</ComboBoxItem>
                 <ComboBoxItem>IRScan tester</ComboBoxItem>
-                <ComboBoxItem IsEnabled="False">Ev3 Tracked Explor3r Mark II</ComboBoxItem>
+                <ComboBoxItem>Ev3 Tracked Explor3r Mark II</ComboBoxItem>
             </ComboBox>
         </StackPanel>
         

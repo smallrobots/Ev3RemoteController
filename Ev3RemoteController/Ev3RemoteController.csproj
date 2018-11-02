@@ -162,6 +162,7 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Resources\Ev3Tank-v1-17.png" />
+    <Content Include="Resources\EvTeMarkII-03.png" />
     <Content Include="Resources\TE Mark 2_20180527_1b.png" />
     <None Include="UserControls\Drawings\Gauge -100 100.svg" />
     <None Include="UserControls\Drawings\Gauge 0-100.svg" />

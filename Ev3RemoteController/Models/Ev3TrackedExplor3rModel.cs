@@ -159,8 +159,10 @@ namespace Smallrobots.Ev3RemoteController.Models
             {
                 if (RoverSelected == 0)
                 {
-                    // Ev3 Tracked Explor3r
-                    return (int)((HeadMotorPosition - HeadMotorPosition_Zero) / 145.0 * 90.0);
+                    // Ev3 Tracked Explor3r Mark I
+                    // return (int)((HeadMotorPosition - HeadMotorPosition_Zero) / 145.0 * 90.0);
+                    // Ev3 Tracked Explor3r Mark I
+                    return (int)((HeadMotorPosition - HeadMotorPosition_Zero) / 1250.0 * 90.0);
                 }
                 else if (RoverSelected == 1)
                 {
@@ -196,6 +198,20 @@ namespace Smallrobots.Ev3RemoteController.Models
             set
             {
                 iRContinuousScan = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        int gyro_reading = 0;
+        /// <summary>
+        /// Gets or sets the Gyro Reading giving the measured heading of the rover
+        /// </summary>
+        public int GyroReading
+        {
+            get => gyro_reading;
+            set
+            {
+                gyro_reading = value;
                 RaisePropertyChanged();
             }
         }
@@ -243,6 +259,7 @@ namespace Smallrobots.Ev3RemoteController.Models
             DispatcherHelper.CheckBeginInvokeOnUI(() => HeadMotorPosition = theMessage.HeadMotorPosition);
             DispatcherHelper.CheckBeginInvokeOnUI(() => 
                 IRContinuousScan = new ObservableCollection<int>(theMessage.IRContinuousScan));
+            DispatcherHelper.CheckBeginInvokeOnUI(() => GyroReading = theMessage.GyroReading);
         }
         #endregion
     }

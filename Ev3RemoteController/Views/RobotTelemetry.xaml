@@ -129,6 +129,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -149,22 +150,22 @@
                        Text="{Binding RobotModel.HeadMotorPosition}"
                        Style="{StaticResource BodyTextBlockStyle}"
                        Margin="5"/>
-                <!-- Zero -->
+                <!-- Calibrated heading -->
                 <TextBlock Grid.Row="2" Grid.Column="0"
-                       Text="Zero value"
+                       Text="Calibrated heading"
                        Style="{StaticResource BodyTextBlockStyle}"
                        Margin="5"/>
                 <TextBlock Grid.Row="2" Grid.Column="1"
-                       Text="{Binding RobotModel.HeadMotorPosition_Zero}"
+                       Text="{Binding RobotModel.HeadMotorPosition_Calibrated}"
                        Style="{StaticResource BodyTextBlockStyle}"
                        Margin="5"/>
                 <!-- Calibrated heading -->
                 <TextBlock Grid.Row="3" Grid.Column="0"
-                       Text="Calibrated heading"
+                       Text="Gyro heading"
                        Style="{StaticResource BodyTextBlockStyle}"
                        Margin="5"/>
                 <TextBlock Grid.Row="3" Grid.Column="1"
-                       Text="{Binding RobotModel.HeadMotorPosition_Calibrated}"
+                       Text="{Binding RobotModel.GyroReading}"
                        Style="{StaticResource BodyTextBlockStyle}"
                        Margin="5"/>
             </Grid>
