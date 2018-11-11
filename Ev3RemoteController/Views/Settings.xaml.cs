@@ -59,10 +59,28 @@ namespace Smallrobots.Ev3RemoteController.Views
             get => rightThumbStickX;
             set
             {
-                if (RightThumbStickX != value)
+                if (rightThumbStickX != value)
                 {
                     rightThumbStickX = value;
-                    ((MainViewModel)DataContext).RightThumbStickX = RightThumbStickX;
+                    ((MainViewModel)DataContext).RightThumbStickX = rightThumbStickX;
+                }
+            }
+        }
+
+        bool buttonL1Pressed = false;
+        /// <summary>
+        /// Gets or sets the condition of Button L1 Pressed
+        /// </summary>
+        public bool ButtonL1Pressed
+        {
+            get => buttonL1Pressed;
+            set
+            {
+                if (buttonL1Pressed != value)
+                {
+                    buttonL1Pressed = value;
+                    // Update the view model
+                    ((MainViewModel)DataContext).ButtonL1Pressed = buttonL1Pressed;
                 }
             }
         }
@@ -149,10 +167,16 @@ namespace Smallrobots.Ev3RemoteController.Views
             if (GameControllerConnected)
             {
                 Gamepad gamePad = Gamepad.Gamepads[0];
+
+                // Readings
                 GamepadReading readings = gamePad.GetCurrentReading();
                 LeftThumbStickX = readings.LeftThumbstickX;
                 LeftThumbStickY = readings.LeftThumbstickY;
                 RightThumbStickX = readings.RightThumbstickX;
+
+                // Buttons
+                // Parte da modificare 03/11/2018
+                ButtonL1Pressed = GamepadButtons.LeftShoulder == (readings.Buttons & GamepadButtons.LeftShoulder);
             }
         }
 

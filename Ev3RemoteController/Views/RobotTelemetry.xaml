@@ -39,7 +39,7 @@
             </Grid.ColumnDefinitions>
             <!--Polar Gauge-->
             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                       Text="Head orientation"
+                       Text="Surroundings infrared scanning"
                        HorizontalAlignment="Center"
                        Style="{StaticResource BaseTextBlockStyle}"/>
             <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
@@ -138,27 +138,9 @@
                 <!-- Readings from sensors -->
                 <TextBlock Grid.Row="0" Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           Text="Heading readings"
+                           Text="Heading"
                            Style="{StaticResource BaseTextBlockStyle}"
                            Margin="5"/>
-                <!-- Raw value -->
-                <TextBlock Grid.Row="1" Grid.Column="0"
-                       Text="Raw heading value"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       Margin="5"/>
-                <TextBlock Grid.Row="1" Grid.Column="1"
-                       Text="{Binding RobotModel.HeadMotorPosition}"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       Margin="5"/>
-                <!-- Calibrated heading -->
-                <TextBlock Grid.Row="2" Grid.Column="0"
-                       Text="Calibrated heading"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       Margin="5"/>
-                <TextBlock Grid.Row="2" Grid.Column="1"
-                       Text="{Binding RobotModel.HeadMotorPosition_Calibrated}"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       Margin="5"/>
                 <!-- Calibrated heading -->
                 <TextBlock Grid.Row="3" Grid.Column="0"
                        Text="Gyro heading"
@@ -166,6 +148,15 @@
                        Margin="5"/>
                 <TextBlock Grid.Row="3" Grid.Column="1"
                        Text="{Binding RobotModel.GyroReading}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <!-- Route following -->
+                <TextBlock Grid.Row="4" Grid.Column="0"
+                       Text="Route following"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <TextBlock Grid.Row="4" Grid.Column="1"
+                       Text="{Binding RobotModel.KeepRouteNotification}"
                        Style="{StaticResource BodyTextBlockStyle}"
                        Margin="5"/>
             </Grid>
@@ -176,6 +167,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -183,7 +176,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           Text="Infrared sensor readings"
+                           Text="Infrared sensor"
                            Style="{StaticResource BaseTextBlockStyle}"
                            Margin="5"/>
                 <!-- Proximity -->
@@ -195,13 +188,31 @@
                            Text="{Binding RobotModel.SingleIrReading}"
                            Style="{StaticResource BodyTextBlockStyle}"
                            Margin="5"/>
-                <!-- Continuous scan -->
+                <!-- IR Direction -->
                 <TextBlock Grid.Row="2" Grid.Column="0"
+                       Text="Direction"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <TextBlock Grid.Row="2" Grid.Column="1"
+                       Text="{Binding RobotModel.HeadMotorPosition_Calibrated}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <!-- Raw value -->
+                <TextBlock Grid.Row="3" Grid.Column="0"
+                       Text="Raw IR directions"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <TextBlock Grid.Row="3" Grid.Column="1"
+                       Text="{Binding RobotModel.HeadMotorPosition}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Margin="5"/>
+                <!-- Continuous scan -->
+                <TextBlock Grid.Row="4" Grid.Column="0"
                            Text="Continuous scan"
                            Style="{StaticResource BodyTextBlockStyle}"
                            Margin="5"
                            VerticalAlignment="Center"/>
-                <ToggleSwitch Grid.Row="2" Grid.Column="1"
+                <ToggleSwitch Grid.Row="4" Grid.Column="1"
                               Margin="5"
                               VerticalAlignment="Center"
                               OnContent="Activated"

@@ -115,6 +115,26 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
             }
         }
 
+        bool buttonL1Pressed = false;
+        /// <summary>
+        /// Gets or sets the condition of Button L1 Pressed
+        /// </summary>
+        public bool ButtonL1Pressed
+        {
+            get => buttonL1Pressed;
+            set
+            {
+                if (buttonL1Pressed != value)
+                {
+                    buttonL1Pressed = value;
+                    RaisePropertyChanged();
+
+                    // Update the robot model
+                    RobotModel.KeepRoute = value;
+                }
+            }
+        }
+
         bool gameControllerConnected;
         /// <summary>
         /// Get or Sets the game controller connected flag

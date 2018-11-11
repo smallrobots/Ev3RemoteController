@@ -53,6 +53,36 @@ namespace Smallrobots.Ev3RemoteController.Models
             }
         }
 
+        bool keepRoute = false;
+        /// <summary>
+        /// Gets or sets KeepRoute
+        /// When KeepRoute is True, the rover will try to keep its route using the Gyroscope sensor
+        /// </summary>
+        public bool KeepRoute
+        {
+            get => keepRoute;
+            set
+            {
+                if (keepRoute != value)
+                {
+                    keepRoute = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("KeepRouteNotification");
+                }
+            }
+        }
+
+        public string KeepRouteNotification
+        {
+            get
+            {
+                if (keepRoute)
+                    return "Yes";
+                else
+                    return "No";
+            }
+        }
+
         int roverSelected = 0;
         /// <summary>
         /// Gets or sets the index of the rover selected
@@ -241,6 +271,7 @@ namespace Smallrobots.Ev3RemoteController.Models
             message.TurnHeadCommand = TurnHeadCommand;
             message.IsContinuousScanActivated = IsContinuousScanActivated;
             message.RoverSelected = RoverSelected;
+            message.KeepRouteCommand = KeepRoute;
             return message;
         }
 

@@ -162,6 +162,26 @@ namespace Smallrobots.Ev3RemoteController.Models
                 }
             }
         }
+
+        [JsonIgnore]
+        bool keepRouteCommand = false;
+        /// <summary>
+        /// Get or sets KeepRouteCommand
+        /// KeepRouteCommand == true will instruct the rover to keep its current route using the gyro sensor
+        /// </summary>
+        [JsonProperty("gyro_reference_driving_activated")]
+        public bool KeepRouteCommand
+        {
+            get => keepRouteCommand;
+            set
+            {
+                if (keepRouteCommand != value)
+                {
+                    keepRouteCommand = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region Constructor
