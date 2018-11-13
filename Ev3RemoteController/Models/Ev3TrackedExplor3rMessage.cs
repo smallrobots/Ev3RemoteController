@@ -182,6 +182,26 @@ namespace Smallrobots.Ev3RemoteController.Models
                 }
             }
         }
+
+        [JsonIgnore]
+        bool roamingModeActivated = false;
+        [JsonProperty("roaming_mode_activated")]
+        /// <summary>
+        /// Gets or sets the command that activate the roaming mode on the rover
+        /// RoamingModeActivated = true activates the automatic roaming mode
+        /// </summary>
+        public bool RoamingModeActivated
+        {
+            get => roamingModeActivated;
+            set
+            {
+                if (roamingModeActivated != value)
+                {
+                    roamingModeActivated = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region Constructor

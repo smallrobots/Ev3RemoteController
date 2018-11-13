@@ -85,6 +85,30 @@ namespace Smallrobots.Ev3RemoteController.Views
             }
         }
 
+        bool roamingModeToggle = false;
+
+        bool buttonXPressed = false;
+        /// <summary>
+        /// Gets or sets the condition of Button X pressed
+        /// </summary>
+        public bool ButtonXPressed
+        {
+            get => buttonXPressed;
+            set
+            {
+                if (buttonXPressed != value)
+                {
+                    buttonXPressed = value;
+                    if (buttonXPressed)
+                    {
+                        roamingModeToggle = !roamingModeToggle;
+                        // Update the view model
+                        ((MainViewModel)DataContext).RoamingMode = roamingModeToggle;
+                    }
+                }
+            }
+        }
+
         bool gameControllerConnected;
         /// <summary>
         /// Get or Sets the game controller connected flag
@@ -175,8 +199,8 @@ namespace Smallrobots.Ev3RemoteController.Views
                 RightThumbStickX = readings.RightThumbstickX;
 
                 // Buttons
-                // Parte da modificare 03/11/2018
                 ButtonL1Pressed = GamepadButtons.LeftShoulder == (readings.Buttons & GamepadButtons.LeftShoulder);
+                ButtonXPressed = GamepadButtons.A == (readings.Buttons & GamepadButtons.A);
             }
         }
 

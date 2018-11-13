@@ -135,6 +135,26 @@ namespace Smallrobots.Ev3RemoteController.ViewModels
             }
         }
 
+        bool roamingMode = false;
+        /// <summary>
+        /// Gets or sets the roaming mode for the rover
+        /// </summary>
+        public bool RoamingMode
+        {
+            get => roamingMode;
+            set
+            {
+                if (roamingMode != value)
+                {
+                    roamingMode = value;
+                    RaisePropertyChanged();
+
+                    // Update the robot model
+                    RobotModel.RoamingModeActivated = roamingMode;
+                }
+            }
+        }
+
         bool gameControllerConnected;
         /// <summary>
         /// Get or Sets the game controller connected flag

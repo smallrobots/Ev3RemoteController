@@ -219,6 +219,35 @@
                               OffContent="Inactive"
                               IsOn="{Binding RobotModel.IsContinuousScanActivated, Mode=TwoWay}"/>
             </Grid>
+            <!-- Roaming Mode -->
+            <Grid VerticalAlignment="Center"
+                  Margin="0,10,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="Roaming Mode"
+                           Style="{StaticResource BaseTextBlockStyle}"
+                           Margin="5"/>
+                <!-- Roaming Mode Activated -->
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           Text="Activated "
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Margin="5"/>
+                <TextBlock Grid.Row="1" Grid.Column="1"
+                           Text="{Binding RobotModel.RoamingModeActivated}"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Margin="5"/>
+            </Grid>
         </StackPanel>
 
 

@@ -103,6 +103,23 @@ namespace Smallrobots.Ev3RemoteController.Models
                 }
             }
         }
+
+        bool roamingModeActivated = false;
+        /// <summary>
+        /// Gets or sets the command that activate the roaming mode on the rover
+        /// </summary>
+        public bool RoamingModeActivated
+        {
+            get => roamingModeActivated;
+            set
+            {
+                if (roamingModeActivated != value)
+                {
+                    roamingModeActivated = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region Robot Telemetry
@@ -272,6 +289,7 @@ namespace Smallrobots.Ev3RemoteController.Models
             message.IsContinuousScanActivated = IsContinuousScanActivated;
             message.RoverSelected = RoverSelected;
             message.KeepRouteCommand = KeepRoute;
+            message.RoamingModeActivated = RoamingModeActivated;
             return message;
         }
 
